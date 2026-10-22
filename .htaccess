@@ -1,0 +1,17 @@
+AddType model/gltf-binary .glb
+AddType image/webp .webp
+AddType video/webm .webm
+AddType font/ttf .ttf
+AddDefaultCharset UTF-8
+DirectoryIndex index.html
+<IfModule mod_headers.c>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+  <FilesMatch "\.(glb|webp|webm|ttf|png)$">
+    Header set Cache-Control "public, max-age=86400"
+  </FilesMatch>
+</IfModule>
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript model/gltf-binary
+</IfModule>

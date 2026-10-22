@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Екатерина Хромова — арт-директор</title>
+    <meta
+      name="description"
+      content="Сайт-визитка Екатерины Хромовой — арт-директора и мультидисциплинарного дизайнера."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css?v=fig-26" />
+  </head>
+  <body>
+    <div class="loader" id="loader" aria-live="polite">
+      <div class="loader__orb" aria-hidden="true" data-glass-lens data-glass-round data-glass-bezel="78" data-glass-scale="80">
+        <div class="loader__sheen loader__sheen--one"></div>
+        <div class="loader__sheen loader__sheen--two"></div>
+      </div>
+      <div class="loader__percent" id="loader-percent">0%</div>
+    </div>
+    <div class="page-shell">
+      <nav class="topbar">
+        <button class="topbar__menu-button" id="topbar-menu-button" type="button" aria-expanded="false" aria-controls="topbar-mobile-panel">
+          кто я
+        </button>
+        <div class="topbar__group topbar__group--intro">
+          <div class="topbar__meta">ЕКАТЕРИНА ХРОМОВА • ПОРТФОЛИО • 2026 • МОСКВА</div>
+          <div class="topbar__left-copy">
+            От анализа и концепции до команды, сайта, презентации и визуального мира проекта.
+          </div>
+        </div>
+        <div class="topbar__right-frame">
+          <div class="topbar__group topbar__group--about">
+            <div class="topbar__about-label">ОБО МНЕ</div>
+            <div class="topbar__right-copy">
+              арт-директор, мультидисциплинарный дизайнер, создаю визуальные системы, digital-опыт и креативные проекты от идеи до реализации
+            </div>
+          </div>
+          <div class="topbar__group topbar__group--contacts">
+            <div class="topbar__contacts-label">КОНТАКТЫ</div>
+            <div class="topbar__contact-row">
+              <a class="topbar__handle" href="https://t.me/knopa_khrom" target="_blank" rel="noreferrer">@knopa_khrom</a>
+            <div class="topbar__icons" aria-label="Контакты">
+                <a href="https://t.me/knopa_khrom" target="_blank" rel="noreferrer" aria-label="Telegram" class="topbar__icon topbar__icon--telegram">
+                  <img src="./assets/icons/telegram.png" alt="" width="41" height="41" />
+                </a>
+                <a href="https://www.instagram.com/knopa_khrom/" target="_blank" rel="noreferrer" aria-label="Instagram" class="topbar__icon topbar__icon--instagram">
+                  <img src="./assets/icons/instagram.png" alt="" width="44" height="44" />
+                </a>
+              </div>
+              </div>
+          </div>
+        </div>
+        <div class="topbar__mobile-panel" id="topbar-mobile-panel" aria-hidden="true">
+          <div class="topbar__mobile-section">
+            <div class="topbar__meta">ЕКАТЕРИНА ХРОМОВА • ПОРТФОЛИО • 2026 • МОСКВА</div>
+          </div>
+          <div class="topbar__mobile-section">
+            <div class="topbar__about-label">ОБО МНЕ</div>
+            <div class="topbar__left-copy">
+              От анализа и концепции до команды, сайта, презентации и визуального мира проекта.
+            </div>
+            <div class="topbar__right-copy">
+              арт-директор, мультидисциплинарный дизайнер, создаю визуальные системы, digital-опыт и креативные проекты от идеи до реализации
+            </div>
+          </div>
+          <div class="topbar__mobile-section">
+            <div class="topbar__contacts-label">КОНТАКТЫ</div>
+            <div class="topbar__contact-row">
+              <a class="topbar__handle" href="https://t.me/knopa_khrom" target="_blank" rel="noreferrer">@knopa_khrom</a>
+            <div class="topbar__icons" aria-label="Контакты">
+                <a href="https://t.me/knopa_khrom" target="_blank" rel="noreferrer" aria-label="Telegram" class="topbar__icon topbar__icon--telegram">
+                  <img src="./assets/icons/telegram.png" alt="" width="41" height="41" />
+                </a>
+                <a href="https://www.instagram.com/knopa_khrom/" target="_blank" rel="noreferrer" aria-label="Instagram" class="topbar__icon topbar__icon--instagram">
+                  <img src="./assets/icons/instagram.png" alt="" width="44" height="44" />
+                </a>
+              </div>
+              </div>
+          </div>
+        </div>
+      </nav>
+
+      <header class="hero hero--fullscreen" id="home">
+        <div class="hero__canvas">
+          <div class="hero__wordmark" aria-hidden="true">KHROMOVA</div>
+          <div class="hero__wordmark-name" aria-hidden="true">Катя</div>
+          <div class="hero__three" id="character-host" aria-hidden="true"></div>
+          <div class="hero__mobile-scene" aria-hidden="true">
+            <div class="hero__name">KHROMOVA</div>
+            <div class="hero__figure">
+              <div class="hero__figure-3d" id="character-host-mobile"></div>
+            </div>
+          </div>
+          <div class="hero__veil" aria-hidden="true"></div>
+          <a class="hero__bubble hero__bubble--env" href="#cases" aria-haspopup="dialog" aria-controls="section-modal" data-section-text="Пространства, выставки, навигация и инсталляции: как визуальная система живёт в реальном мире.">средовой<br />дизайн</a>
+          <a class="hero__bubble hero__bubble--product" href="#cases" aria-haspopup="dialog" aria-controls="section-modal" data-section-text="Цифровые продукты и сервисы: исследования, пользовательские сценарии, интерфейсы и дизайн-системы.">продуктовый<br />дизайн</a>
+          <a class="hero__bubble hero__bubble--motion" href="#cases" aria-haspopup="dialog" aria-controls="section-modal" data-section-text="Анимация, моушн-дизайн и видео: от раскадровки и стиля до руководства командой продакшена.">арт-дирекшн<br />анимации</a>
+          <a class="hero__bubble hero__bubble--brand" href="#cases" aria-haspopup="dialog" aria-controls="section-modal" data-section-text="Айдентика и бренд-платформы: от стратегии и смыслов до логотипа и гайдлайнов.">брендинг</a>
+          <a class="hero__bubble hero__bubble--pres" href="#cases" aria-haspopup="dialog" aria-controls="section-modal" data-section-text="Презентации и питч-деки, которые продают идею: структура, сторителлинг и визуал.">презентации</a>
+          <a class="hero__bubble hero__bubble--ai" href="#cases" aria-haspopup="dialog" aria-controls="section-modal" data-section-text="Генеративные изображения, видео и 3D: нейросети как часть творческого процесса.">ии-креатив</a>
+          <a class="hero__bubble hero__bubble--vibe" href="#cases" aria-haspopup="dialog" aria-controls="section-modal" data-section-text="Сайты и интерактивные прототипы, собранные вместе с ИИ: от идеи до живого продукта.">вайбкодинг</a>
+          <a class="hero__bubble hero__bubble--web" href="#cases" aria-haspopup="dialog" aria-controls="section-modal" data-section-text="Интерфейсы, лендинги и сайты: UX-логика, визуальный стиль и передача в разработку.">веб-дизайн</a>
+          <div class="hero__footer">
+            <button class="hero__footer-menu" id="hero-footer-menu-button" type="button" aria-expanded="false" aria-controls="hero-footer-mobile-panel" aria-label="Открыть нижнее меню">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            <nav class="hero__bottom-nav" aria-label="Навигация по разделам">
+              <a href="#home">главная</a>
+              <span>•</span>
+              <a href="#projects-library">проекты</a>
+              <span>•</span>
+              <a href="#archive-library">архив</a>
+            </nav>
+            <button class="hero__bottom-note" id="journey-trigger" type="button" aria-haspopup="dialog" aria-controls="journey-modal">
+              путь героя
+            </button>
+            <div class="hero__footer-mobile-panel" id="hero-footer-mobile-panel" aria-hidden="true">
+              <nav class="hero__footer-mobile-nav" aria-label="Мобильная навигация по разделам">
+                <a href="#home">главная</a>
+                <a href="#projects-library">проекты</a>
+                <a href="#archive-library">архив</a>
+                <button class="hero__footer-mobile-journey" id="journey-trigger-mobile" type="button" aria-haspopup="dialog" aria-controls="journey-modal">
+                  путь героя
+                </button>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="library-anchor" id="projects-library" aria-label="Библиотека проектов"></section>
+      <section class="library-anchor" id="archive-library" aria-label="Библиотека архивных проектов"></section>
+
+      <div class="journey-modal" id="section-modal" aria-hidden="true">
+        <div class="journey-modal__backdrop" data-journey-close></div>
+        <section class="journey-card" role="dialog" aria-modal="true" aria-labelledby="section-title">
+          <button class="journey-card__close" type="button" aria-label="Закрыть окно" data-journey-close>закрыть</button>
+          <h2 class="journey-card__title" id="section-title"></h2>
+          <div class="journey-card__content">
+            <p id="section-text"></p>
+            <p>Скоро здесь появятся кейсы этого направления.</p>
+          </div>
+        </section>
+      </div>
+      <div class="journey-modal" id="journey-modal" aria-hidden="true">
+        <div class="journey-modal__backdrop" data-journey-close></div>
+        <section class="journey-card" role="dialog" aria-modal="true" aria-labelledby="journey-title">
+          <button class="journey-card__close" type="button" aria-label="Закрыть окно" data-journey-close>закрыть</button>
+          <h2 class="journey-card__title" id="journey-title">здесь будет большая история обо мне и моем пути</h2>
+          <div class="journey-card__content">
+            <p>
+              Здесь мы позже соберем большой личный текст: как ты пришла в профессию, через какие этапы прошла,
+              во что веришь как арт-директор и как собираешь проекты от идеи до сильной визуальной формы.
+            </p>
+            <p>
+              Пока я уже подготовил само окно, анимацию раскрытия и структуру, чтобы мы следующим шагом просто
+              вставили готовую историю без переделки интерфейса.
+            </p>
+          </div>
+        </section>
+      </div>
+    </div>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+        }
+      }
+    </script>
+    <script src="./script.js?v=fig-26"></script>
+    <script src="./glass.js?v=fig-26"></script>
+    <script src="./bubbles.js?v=fig-26"></script>
+    <script type="module" src="./character.js?v=fig-26"></script>
+  </body>
+</html>
