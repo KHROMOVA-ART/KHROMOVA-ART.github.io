@@ -1415,15 +1415,15 @@ main {
     width: 208px;
     left: auto;
     right: 30px;
-    top: 638px;
+    top: 665px;
     padding: 12px 18px 18px;
     font-size: 12.5px;
     line-height: 1.05;
   }
-  .hero__bubble--brand { width: 111px; left: auto; right: 30px; top: 560px; }
-  .hero__bubble--pres { width: 141px; left: auto; right: 30px; top: 482px; }
+  .hero__bubble--brand { width: 111px; left: auto; right: 30px; top: 587px; }
+  .hero__bubble--pres { width: 141px; left: auto; right: 30px; top: 509px; }
   .hero__bubble--ai { width: 129px; left: auto; right: 30px; top: 197px; }
-  .hero__bubble--vibe { width: 124px; left: auto; right: 30px; top: 404px; }
+  .hero__bubble--vibe { width: 124px; left: auto; right: 30px; top: 431px; }
   .hero__bubble--web { width: 126px; left: auto; right: 30px; top: 353px; }
 
   .hero__bottom-nav {
@@ -1471,6 +1471,13 @@ main {
     font-size: 14px;
     line-height: 1.05;
     border-radius: 24px;
+    /* колонка у правого края: без десктопного сдвига на полширины, иначе широкие баблы уезжают влево */
+    translate: none;
+  }
+
+  /* подпись теперь в две строки — бабл той же ширины, что «средовой» и «продуктовый дизайн» */
+  .hero__bubble--motion {
+    width: 140px;
   }
 }
 
