@@ -702,6 +702,7 @@ body {
 .hero__bubble--ai { width: clamp(132px, 9vw, 160px); left: 10%; top: 51.5%; animation-delay: 1.4s; }
 .hero__bubble--vibe { width: clamp(136px, 9vw, 153px); left: 89%; top: 50%; animation-delay: 2.2s; }
 .hero__bubble--web { width: clamp(138px, 9vw, 156px); left: 18%; top: 70%; animation-delay: 0.3s; }
+.hero__bubble--type { width: clamp(140px, 9vw, 160px); left: 90%; top: 66%; animation-delay: 1.6s; }
 
 .hero__footer {
   position: absolute;
@@ -1163,6 +1164,7 @@ main {
   .hero__bubble--vibe { width: 124px; left: auto; right: 30px; top: 404px; }
   .hero__bubble--pres { width: 141px; left: auto; right: 30px; top: 482px; }
   .hero__bubble--brand { width: 111px; left: auto; right: 30px; top: 560px; }
+  .hero__bubble--type { width: 124px; left: auto; right: 30px; top: 716px; }
   .hero__bubble--motion {
     width: 208px;
     left: auto;
@@ -1323,6 +1325,7 @@ main {
   .hero__bubble--vibe { width: 124px; left: auto; right: 30px; top: 404px; }
   .hero__bubble--pres { width: 141px; left: auto; right: 30px; top: 482px; }
   .hero__bubble--brand { width: 111px; left: auto; right: 30px; top: 560px; }
+  .hero__bubble--type { width: 124px; left: auto; right: 30px; top: 716px; }
   .hero__bubble--motion {
     width: 208px;
     left: auto;
@@ -1430,21 +1433,22 @@ main {
   }
 
   .hero__bubble--env { width: 140px; left: auto; right: 30px; top: 119px; }
-  .hero__bubble--product { width: 140px; left: auto; right: 30px; top: 275px; }
+  .hero__bubble--product { width: 140px; left: auto; right: 30px; top: 263px; }
   .hero__bubble--motion {
     width: 208px;
     left: auto;
     right: 30px;
-    top: 665px;
+    top: 623px;
     padding: 12px 18px 18px;
     font-size: 12.5px;
     line-height: 1.05;
   }
-  .hero__bubble--brand { width: 111px; left: auto; right: 30px; top: 587px; }
-  .hero__bubble--pres { width: 141px; left: auto; right: 30px; top: 509px; }
-  .hero__bubble--ai { width: 129px; left: auto; right: 30px; top: 197px; }
-  .hero__bubble--vibe { width: 124px; left: auto; right: 30px; top: 431px; }
-  .hero__bubble--web { width: 126px; left: auto; right: 30px; top: 353px; }
+  .hero__bubble--brand { width: 111px; left: auto; right: 30px; top: 551px; }
+  .hero__bubble--type { width: 124px; left: auto; right: 30px; top: 695px; }
+  .hero__bubble--pres { width: 141px; left: auto; right: 30px; top: 479px; }
+  .hero__bubble--ai { width: 129px; left: auto; right: 30px; top: 191px; }
+  .hero__bubble--vibe { width: 124px; left: auto; right: 30px; top: 407px; }
+  .hero__bubble--web { width: 126px; left: auto; right: 30px; top: 335px; }
 
   .hero__bottom-nav {
     gap: 6px;

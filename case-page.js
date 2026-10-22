@@ -76,6 +76,13 @@
     a.href = `./projects.html?tag=${t}`;
     tagRow.append(a);
   }
+  if (item.link) {
+    const a = el("a", "case__tag case__link", `${item.link.label} ↗`);
+    a.href = item.link.href;
+    a.target = "_blank";
+    a.rel = "noopener";
+    tagRow.append(a);
+  }
   head.append(labels, title, tagRow);
 
   const intro = el("div", "case__intro");
