@@ -168,9 +168,32 @@ const sectionModal = document.getElementById("section-modal");
 if (sectionModal) {
   const sectionTitle = document.getElementById("section-title");
   const sectionText = document.getElementById("section-text");
+  const sectionCases = document.getElementById("section-cases");
+  const sectionAll = document.getElementById("section-all");
   window.openSectionModal = (bubble) => {
+    const tag = bubble.dataset.section;
     sectionTitle.textContent = bubble.innerText.replace(/\s+/g, " ").trim();
     sectionText.textContent = bubble.dataset.sectionText || "";
+    // кейсы направления из cases.js
+    const items = (window.CASES || []).filter((c) => c.tags.includes(tag));
+    sectionCases.replaceChildren(
+      ...(items.length
+        ? items.map((item) => {
+            const a = document.createElement("a");
+            a.className = "section-case";
+            a.href = `./case.html?id=${encodeURIComponent(item.id)}`;
+            const cover = document.createElement("img");
+            cover.src = window.caseImage(item, item.cover);
+            cover.alt = "";
+            cover.loading = "lazy";
+            const title = document.createElement("span");
+            title.textContent = item.title;
+            a.append(cover, title);
+            return a;
+          })
+        : [Object.assign(document.createElement("p"), { textContent: "Скоро здесь появятся кейсы этого направления." })]),
+    );
+    sectionAll.href = items.length ? `./projects.html?tag=${tag}` : "./projects.html";
     openModal(sectionModal);
   };
 }

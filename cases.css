@@ -1,0 +1,360 @@
+/* Страницы кейсов и проектов: те же шрифты и палитра, что на главной. */
+
+.case-body {
+  background: #fdfdfd;
+  color: #312723;
+}
+
+/* у main из styles.css старый серый фон — на страницах кейсов он не нужен */
+.case-body main {
+  background: none;
+}
+
+.case-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 28px clamp(20px, 2.65vw, 51px);
+  background: linear-gradient(180deg, rgba(253, 253, 253, 0.96) 60%, rgba(253, 253, 253, 0));
+}
+
+.case-nav__link {
+  color: #312723;
+  text-decoration: none;
+  font-family: "Bimbo", "Cygre Book", "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(16px, 1.042vw, 20px);
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.case-nav__link:hover {
+  opacity: 0.6;
+}
+
+/* --- кейс --- */
+
+.case {
+  width: min(100% - 2 * clamp(20px, 2.65vw, 51px), 1400px);
+  margin: 0 auto;
+  padding: clamp(24px, 4vw, 64px) 0 96px;
+}
+
+.case__empty {
+  font-family: "Cygre Light", "Helvetica Neue", Arial, sans-serif;
+  font-size: 18px;
+}
+
+.case__labels {
+  margin: 0 0 18px;
+  font-family: "Bimbo", "Cygre Book", "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(16px, 1.042vw, 20px);
+  text-transform: uppercase;
+}
+
+.case__title {
+  margin: 0;
+  max-width: 16ch;
+  font-family: "Cygre Medium", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 400;
+  font-size: clamp(40px, 5.2vw, 96px);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  text-transform: lowercase;
+  text-wrap: balance;
+}
+
+.case__nowrap {
+  white-space: nowrap;
+}
+
+.case__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.case__tag,
+.projects__filter {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow:
+    inset 1.5px 1.5px 0 rgba(255, 255, 255, 0.95),
+    inset -1px -1px 0 rgba(255, 255, 255, 0.5),
+    0 1.14px 1.14px rgba(253, 219, 146, 0.25),
+    0 -2.28px 8.9px rgba(167, 178, 235, 0.38),
+    0 1.19px 8.9px rgba(255, 255, 255, 0.38);
+  color: #6e6765;
+  font-family: "Cygre Medium", "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: lowercase;
+  cursor: pointer;
+  transition: scale 400ms cubic-bezier(0.34, 1.7, 0.5, 1), color 200ms ease;
+}
+
+.case__tag:hover,
+.projects__filter:hover {
+  scale: 1.05;
+}
+
+.projects__filter.is-active {
+  color: #312723;
+  background: #e8eedf;
+}
+
+.case__intro {
+  display: grid;
+  gap: 14px;
+  max-width: 760px;
+  margin: clamp(36px, 4vw, 64px) 0 clamp(40px, 5vw, 80px);
+}
+
+.case__intro p {
+  margin: 0;
+  font-family: "Cygre Light", "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(17px, 1.15vw, 21px);
+  line-height: 1.35;
+}
+
+.case__gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 32px);
+}
+
+.case__shot {
+  margin: 0;
+}
+
+/* первая картинка — на всю ширину, как обложка */
+.case__shot:first-child {
+  grid-column: 1 / -1;
+}
+
+.case__shot-button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #f1eeec;
+  cursor: zoom-in;
+}
+
+.case__shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: scale 600ms ease;
+}
+
+.case__shot-button:hover img {
+  scale: 1.02;
+}
+
+.case__shot figcaption {
+  margin-top: 10px;
+  color: #6e6765;
+  font-family: "Cygre Light", "Helvetica Neue", Arial, sans-serif;
+  font-size: 15px;
+  text-transform: lowercase;
+}
+
+.case__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: clamp(64px, 8vw, 128px);
+  padding-top: 32px;
+  border-top: 1px solid rgba(49, 39, 35, 0.12);
+}
+
+.case__next {
+  display: grid;
+  gap: 8px;
+  color: #312723;
+  text-decoration: none;
+}
+
+.case__next-label,
+.case__all {
+  font-family: "Bimbo", "Cygre Book", "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(16px, 1.042vw, 20px);
+  text-transform: uppercase;
+  color: #312723;
+  text-decoration: none;
+}
+
+.case__next-title {
+  font-family: "Cygre Medium", "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(28px, 3vw, 52px);
+  line-height: 1;
+  text-transform: lowercase;
+}
+
+.case__next:hover .case__next-title,
+.case__all:hover {
+  opacity: 0.6;
+}
+
+/* --- просмотр на весь экран --- */
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 24px;
+  background: rgba(253, 253, 253, 0.94);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 240ms ease, visibility 240ms ease;
+}
+
+.lightbox.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lightbox__figure {
+  margin: 0;
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.lightbox__img {
+  max-width: 100%;
+  max-height: calc(100svh - 120px);
+  border-radius: 12px;
+  box-shadow: 0 24px 60px rgba(49, 39, 35, 0.16);
+}
+
+.lightbox__caption {
+  color: #6e6765;
+  font-family: "Cygre Light", "Helvetica Neue", Arial, sans-serif;
+  font-size: 15px;
+}
+
+.lightbox__close {
+  position: absolute;
+  top: 24px;
+  right: 28px;
+}
+
+.lightbox__close,
+.lightbox__arrow {
+  padding: 8px 12px;
+  border: 0;
+  background: transparent;
+  color: #312723;
+  font-family: "Bimbo", "Cygre Book", "Helvetica Neue", Arial, sans-serif;
+  font-size: 20px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.lightbox__arrow {
+  font-family: "Cygre Light", "Helvetica Neue", Arial, sans-serif;
+  font-size: 32px;
+}
+
+/* --- сетка проектов --- */
+
+.projects {
+  width: min(100% - 2 * clamp(20px, 2.65vw, 51px), 1600px);
+  margin: 0 auto;
+  padding: clamp(16px, 3vw, 48px) 0 96px;
+}
+
+.projects__title {
+  margin: 0;
+  font-family: "AKONY", "Michroma", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 700;
+  font-size: clamp(48px, 7.85vw, 151px);
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  color: #312723;
+  opacity: 0.7;
+  text-transform: uppercase;
+}
+
+.projects__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 24px 0 clamp(32px, 4vw, 56px);
+}
+
+.projects__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 380px), 1fr));
+  gap: clamp(24px, 2.5vw, 40px);
+}
+
+.project-card {
+  display: grid;
+  gap: 10px;
+  color: #312723;
+  text-decoration: none;
+}
+
+.project-card__cover {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 18px;
+  background: #f1eeec;
+  transition: scale 500ms cubic-bezier(0.34, 1.4, 0.5, 1);
+}
+
+.project-card:hover .project-card__cover {
+  scale: 1.02;
+}
+
+.project-card__title {
+  font-family: "Cygre Medium", "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(18px, 1.3vw, 24px);
+  line-height: 1.1;
+  text-transform: lowercase;
+}
+
+.project-card__tags {
+  color: #6e6765;
+  font-family: "Cygre Light", "Helvetica Neue", Arial, sans-serif;
+  font-size: 15px;
+}
+
+@media (max-width: 760px) {
+  .case__gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .lightbox {
+    grid-template-columns: 1fr;
+    padding: 64px 12px 24px;
+  }
+
+  .lightbox__arrow {
+    display: none;
+  }
+}

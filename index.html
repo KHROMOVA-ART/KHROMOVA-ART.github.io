@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./styles.css?v=fig-27" />
+    <link rel="stylesheet" href="./styles.css?v=fig-29" />
   </head>
   <body>
     <div class="loader" id="loader" aria-live="polite">
@@ -20,6 +20,7 @@
         <div class="loader__sheen loader__sheen--two"></div>
       </div>
       <div class="loader__percent" id="loader-percent">0%</div>
+      <p class="loader__note">Загружаем 3D-фигурку — иногда загрузка ненадолго задерживается на&nbsp;28%. Пожалуйста, подождите немного&nbsp;:)</p>
     </div>
     <div class="page-shell">
       <nav class="topbar">
@@ -96,14 +97,14 @@
             </div>
           </div>
           <div class="hero__veil" aria-hidden="true"></div>
-          <a class="hero__bubble hero__bubble--env" href="#cases" aria-haspopup="dialog" aria-controls="section-modal" data-section-text="Пространства, выставки, навигация и инсталляции: как визуальная система живёт в реальном мире.">средовой<br />дизайн</a>
-          <a class="hero__bubble hero__bubble--product" href="#cases" aria-haspopup="dialog" aria-controls="section-modal" data-section-text="Цифровые продукты и сервисы: исследования, пользовательские сценарии, интерфейсы и дизайн-системы.">продуктовый<br />дизайн</a>
-          <a class="hero__bubble hero__bubble--motion" href="#cases" aria-haspopup="dialog" aria-controls="section-modal" data-section-text="Анимация, моушн-дизайн и видео: от раскадровки и стиля до руководства командой продакшена.">арт-дирекшн<br />анимации</a>
-          <a class="hero__bubble hero__bubble--brand" href="#cases" aria-haspopup="dialog" aria-controls="section-modal" data-section-text="Айдентика и бренд-платформы: от стратегии и смыслов до логотипа и гайдлайнов.">брендинг</a>
-          <a class="hero__bubble hero__bubble--pres" href="#cases" aria-haspopup="dialog" aria-controls="section-modal" data-section-text="Презентации и питч-деки, которые продают идею: структура, сторителлинг и визуал.">презентации</a>
-          <a class="hero__bubble hero__bubble--ai" href="#cases" aria-haspopup="dialog" aria-controls="section-modal" data-section-text="Генеративные изображения, видео и 3D: нейросети как часть творческого процесса.">ии-креатив</a>
-          <a class="hero__bubble hero__bubble--vibe" href="#cases" aria-haspopup="dialog" aria-controls="section-modal" data-section-text="Сайты и интерактивные прототипы, собранные вместе с ИИ: от идеи до живого продукта.">вайбкодинг</a>
-          <a class="hero__bubble hero__bubble--web" href="#cases" aria-haspopup="dialog" aria-controls="section-modal" data-section-text="Интерфейсы, лендинги и сайты: UX-логика, визуальный стиль и передача в разработку.">веб-дизайн</a>
+          <a class="hero__bubble hero__bubble--env" href="./projects.html?tag=env" data-section="env" aria-haspopup="dialog" aria-controls="section-modal" data-section-text="Пространства, выставки, навигация и инсталляции: как визуальная система живёт в реальном мире.">средовой<br />дизайн</a>
+          <a class="hero__bubble hero__bubble--product" href="./projects.html?tag=product" data-section="product" aria-haspopup="dialog" aria-controls="section-modal" data-section-text="Цифровые продукты и сервисы: исследования, пользовательские сценарии, интерфейсы и дизайн-системы.">продуктовый<br />дизайн</a>
+          <a class="hero__bubble hero__bubble--motion" href="./projects.html?tag=motion" data-section="motion" aria-haspopup="dialog" aria-controls="section-modal" data-section-text="Анимация, моушн-дизайн и видео: от раскадровки и стиля до руководства командой продакшена.">арт-дирекшн<br />анимации</a>
+          <a class="hero__bubble hero__bubble--brand" href="./projects.html?tag=brand" data-section="brand" aria-haspopup="dialog" aria-controls="section-modal" data-section-text="Айдентика и бренд-платформы: от стратегии и смыслов до логотипа и гайдлайнов.">брендинг</a>
+          <a class="hero__bubble hero__bubble--pres" href="./projects.html?tag=pres" data-section="pres" aria-haspopup="dialog" aria-controls="section-modal" data-section-text="Презентации и питч-деки, которые продают идею: структура, сторителлинг и визуал.">презентации</a>
+          <a class="hero__bubble hero__bubble--ai" href="./projects.html?tag=ai" data-section="ai" aria-haspopup="dialog" aria-controls="section-modal" data-section-text="Генеративные изображения, видео и 3D: нейросети как часть творческого процесса.">ии-креатив</a>
+          <a class="hero__bubble hero__bubble--vibe" href="./projects.html?tag=vibe" data-section="vibe" aria-haspopup="dialog" aria-controls="section-modal" data-section-text="Сайты и интерактивные прототипы, собранные вместе с ИИ: от идеи до живого продукта.">вайбкодинг</a>
+          <a class="hero__bubble hero__bubble--web" href="./projects.html?tag=web" data-section="web" aria-haspopup="dialog" aria-controls="section-modal" data-section-text="Интерфейсы, лендинги и сайты: UX-логика, визуальный стиль и передача в разработку.">веб-дизайн</a>
           <div class="hero__footer">
             <button class="hero__footer-menu" id="hero-footer-menu-button" type="button" aria-expanded="false" aria-controls="hero-footer-mobile-panel" aria-label="Открыть нижнее меню">
               <span></span>
@@ -113,7 +114,7 @@
             <nav class="hero__bottom-nav" aria-label="Навигация по разделам">
               <a href="#home">главная</a>
               <span>•</span>
-              <a href="#projects-library">проекты</a>
+              <a href="./projects.html">проекты</a>
               <span>•</span>
               <a href="#archive-library">архив</a>
             </nav>
@@ -123,7 +124,7 @@
             <div class="hero__footer-mobile-panel" id="hero-footer-mobile-panel" aria-hidden="true">
               <nav class="hero__footer-mobile-nav" aria-label="Мобильная навигация по разделам">
                 <a href="#home">главная</a>
-                <a href="#projects-library">проекты</a>
+                <a href="./projects.html">проекты</a>
                 <a href="#archive-library">архив</a>
                 <button class="hero__footer-mobile-journey" id="journey-trigger-mobile" type="button" aria-haspopup="dialog" aria-controls="journey-modal">
                   путь героя
@@ -144,7 +145,8 @@
           <h2 class="journey-card__title" id="section-title"></h2>
           <div class="journey-card__content">
             <p id="section-text"></p>
-            <p>Скоро здесь появятся кейсы этого направления.</p>
+            <div class="section-cases" id="section-cases"></div>
+            <a class="section-cases__all" id="section-all" href="./projects.html">все проекты →</a>
           </div>
         </section>
       </div>
@@ -174,9 +176,10 @@
         }
       }
     </script>
-    <script src="./script.js?v=fig-27"></script>
-    <script src="./glass.js?v=fig-27"></script>
-    <script src="./bubbles.js?v=fig-27"></script>
-    <script type="module" src="./character.js?v=fig-27"></script>
+    <script src="./cases.js?v=fig-29"></script>
+    <script src="./script.js?v=fig-29"></script>
+    <script src="./glass.js?v=fig-29"></script>
+    <script src="./bubbles.js?v=fig-29"></script>
+    <script type="module" src="./character.js?v=fig-29"></script>
   </body>
 </html>
