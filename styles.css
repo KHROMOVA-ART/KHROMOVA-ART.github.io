@@ -1563,43 +1563,162 @@ main {
   }
 }
 
-/* кейсы в окне раздела */
-.section-cases {
+/* витрина кейса в окне бабла */
+.showcase {
+  position: relative;
+  z-index: 1;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 16px;
-  margin: 8px 0 4px;
+  gap: 18px;
+  width: min(1040px, 100%);
+  max-height: calc(100svh - 48px);
+  overflow-y: auto;
+  padding: 26px 30px 30px;
+  border-radius: 28px;
+  background: #f6f3ef;
+  box-shadow: 0 26px 70px rgba(49, 39, 35, 0.18);
+  color: #312723;
+  transform: translateY(28px) scale(0.94);
+  opacity: 0;
+  transition:
+    transform 440ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 320ms ease;
 }
 
-.section-case {
-  display: grid;
+.journey-modal.is-open .showcase {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.showcase__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.showcase__section {
+  font-family: "Bimbo", "Cygre Book", "Helvetica Neue", Arial, sans-serif;
+  font-size: 20px;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.showcase__switch {
+  display: flex;
+  flex-wrap: wrap;
   gap: 8px;
-  color: #312723;
-  text-decoration: none;
+}
+
+.showcase__switch:empty {
+  display: none;
+}
+
+.showcase__switch-item {
+  padding: 8px 16px;
+  border: 0;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.7);
+  color: #6e6765;
   font-family: "Cygre Medium", "Helvetica Neue", Arial, sans-serif;
-  font-size: 15px;
-  line-height: 1.15;
+  font-size: 14px;
+  text-transform: lowercase;
+  cursor: pointer;
+}
+
+.showcase__switch-item.is-active {
+  background: #e8eedf;
+  color: #312723;
+}
+
+.showcase__title {
+  margin: 0;
+  font-family: "Cygre Medium", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 400;
+  font-size: clamp(28px, 3vw, 48px);
+  line-height: 1;
+  letter-spacing: -0.02em;
   text-transform: lowercase;
 }
 
-.section-case img {
+/* обложка крупно слева, до четырёх картинок справа плиткой 2×2 */
+.showcase__gallery {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-auto-rows: auto;
+  gap: 10px;
+}
+
+.showcase__gallery:empty {
+  display: none;
+}
+
+.showcase__gallery img {
+  display: block;
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
-  border-radius: 12px;
-  transition: scale 400ms cubic-bezier(0.34, 1.6, 0.5, 1);
+  border-radius: 14px;
+  background: #ece8e4;
 }
 
-.section-case:hover img {
-  scale: 1.03;
+.showcase__cover {
+  grid-row: span 2;
+  height: 100%;
 }
 
-.section-cases__all {
-  display: inline-block;
-  margin-top: 8px;
+.showcase__text {
+  max-width: 720px;
+  margin: 0;
+  font-family: "Cygre Light", "Helvetica Neue", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.3;
+}
+
+.showcase__more {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  min-height: 54px;
+  padding: 0 34px;
+  border-radius: 30px;
+  background:
+    radial-gradient(60% 50% at 25% 15%, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0) 70%),
+    #e8eedf;
+  box-shadow:
+    inset 1.5px 1.5px 0 rgba(255, 255, 255, 0.95),
+    inset -1px -1px 0 rgba(255, 255, 255, 0.5),
+    0 1.14px 1.14px rgba(253, 219, 146, 0.25),
+    0 -2.28px 8.9px rgba(167, 178, 235, 0.38),
+    0 6px 18px rgba(80, 70, 90, 0.08);
   color: #312723;
   font-family: "Bimbo", "Cygre Book", "Helvetica Neue", Arial, sans-serif;
-  font-size: 18px;
-  text-transform: uppercase;
+  font-size: 20px;
   text-decoration: none;
+  text-transform: uppercase;
+  transition: scale 500ms cubic-bezier(0.34, 1.7, 0.5, 1);
+}
+
+.showcase__more:hover {
+  scale: 1.06;
+}
+
+.showcase__more[hidden] {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .showcase {
+    padding: 20px 18px 22px;
+    border-radius: 22px;
+  }
+
+  .showcase__gallery {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .showcase__cover {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    height: auto;
+  }
 }

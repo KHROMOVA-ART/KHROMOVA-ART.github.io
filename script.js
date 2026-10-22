@@ -163,37 +163,70 @@ if (journeyTrigger && journeyModal) {
   }
 }
 
-// окно раздела по клику на бабл (клик отличает от перетаскивания bubbles.js)
+// окно раздела по клику на бабл: витрина кейса — заголовок, картинки, пара строк и «подробнее»
+// (клик отличает от перетаскивания bubbles.js)
 const sectionModal = document.getElementById("section-modal");
 if (sectionModal) {
-  const sectionTitle = document.getElementById("section-title");
-  const sectionText = document.getElementById("section-text");
-  const sectionCases = document.getElementById("section-cases");
-  const sectionAll = document.getElementById("section-all");
+  const sectionLabel = document.getElementById("showcase-section");
+  const switcher = document.getElementById("showcase-switch");
+  const title = document.getElementById("showcase-title");
+  const gallery = document.getElementById("showcase-gallery");
+  const text = document.getElementById("showcase-text");
+  const more = document.getElementById("showcase-more");
+
+  const showCase = (items, i, emptyText) => {
+    const item = items[i];
+    switcher.querySelectorAll("button").forEach((b, n) => b.classList.toggle("is-active", n === i));
+    if (!item) {
+      title.textContent = "скоро здесь появятся кейсы";
+      gallery.replaceChildren();
+      text.textContent = emptyText || "";
+      more.hidden = true;
+      return;
+    }
+    // слова через дефис не разрываем («ии-киностудии» целиком)
+    title.replaceChildren(
+      ...item.title.split(/(\S+-\S+)/).filter(Boolean).map((part) => {
+        if (!part.includes("-")) return part;
+        const span = document.createElement("span");
+        span.style.whiteSpace = "nowrap";
+        span.textContent = part;
+        return span;
+      }),
+    );
+    // витрина: обложка крупно + до четырёх картинок из галереи
+    const shots = [item.cover, ...item.gallery.map((g) => g.src).filter((src) => src !== item.cover)].slice(0, 5);
+    gallery.replaceChildren(
+      ...shots.map((src, n) => {
+        const img = document.createElement("img");
+        img.src = window.caseImage(item, src);
+        img.alt = n === 0 ? item.title : "";
+        img.className = n === 0 ? "showcase__cover" : "showcase__thumb";
+        return img;
+      }),
+    );
+    text.textContent = (item.intro && item.intro[0]) || "";
+    more.hidden = false;
+    more.href = `./case.html?id=${encodeURIComponent(item.id)}`;
+  };
+
   window.openSectionModal = (bubble) => {
     const tag = bubble.dataset.section;
-    sectionTitle.textContent = bubble.innerText.replace(/\s+/g, " ").trim();
-    sectionText.textContent = bubble.dataset.sectionText || "";
-    // кейсы направления из cases.js
     const items = (window.CASES || []).filter((c) => c.tags.includes(tag));
-    sectionCases.replaceChildren(
-      ...(items.length
-        ? items.map((item) => {
-            const a = document.createElement("a");
-            a.className = "section-case";
-            a.href = `./case.html?id=${encodeURIComponent(item.id)}`;
-            const cover = document.createElement("img");
-            cover.src = window.caseImage(item, item.cover);
-            cover.alt = "";
-            cover.loading = "lazy";
-            const title = document.createElement("span");
-            title.textContent = item.title;
-            a.append(cover, title);
-            return a;
+    sectionLabel.textContent = bubble.innerText.replace(/\s+/g, " ").trim();
+    switcher.replaceChildren(
+      ...(items.length > 1
+        ? items.map((item, i) => {
+            const b = document.createElement("button");
+            b.type = "button";
+            b.className = "showcase__switch-item";
+            b.textContent = item.title;
+            b.addEventListener("click", () => showCase(items, i));
+            return b;
           })
-        : [Object.assign(document.createElement("p"), { textContent: "Скоро здесь появятся кейсы этого направления." })]),
+        : []),
     );
-    sectionAll.href = items.length ? `./projects.html?tag=${tag}` : "./projects.html";
+    showCase(items, 0, bubble.dataset.sectionText);
     openModal(sectionModal);
   };
 }
