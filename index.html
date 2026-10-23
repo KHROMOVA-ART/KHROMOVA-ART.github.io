@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./styles.css?v=fig-36" />
+    <link rel="stylesheet" href="./styles.css?v=fig-38" />
   </head>
   <body>
     <div class="loader" id="loader" aria-live="polite">
@@ -141,17 +141,19 @@
 
       <div class="journey-modal" id="section-modal" aria-hidden="true">
         <div class="journey-modal__backdrop" data-journey-close></div>
-        <section class="showcase" role="dialog" aria-modal="true" aria-labelledby="showcase-title">
-          <header class="showcase__top">
-            <span class="showcase__section" id="showcase-section"></span>
-            <button class="journey-card__close" type="button" aria-label="Закрыть окно" data-journey-close>закрыть</button>
-          </header>
-          <nav class="showcase__switch" id="showcase-switch" aria-label="Кейсы направления"></nav>
-          <h2 class="showcase__title" id="showcase-title"></h2>
-          <div class="showcase__gallery" id="showcase-gallery"></div>
-          <p class="showcase__text" id="showcase-text"></p>
-          <a class="showcase__more" id="showcase-more" href="./projects.html">подробнее</a>
-        </section>
+        <div class="showcase-frame" role="dialog" aria-modal="true" aria-labelledby="showcase-title">
+          <button class="showcase__close" type="button" aria-label="Закрыть окно" data-journey-close data-glass-lens data-glass-round data-glass-bezel="30" data-glass-scale="40"><span aria-hidden="true">x</span></button>
+          <section class="showcase">
+            <header class="showcase__top">
+              <span class="showcase__section" id="showcase-section"></span>
+            </header>
+            <nav class="showcase__switch" id="showcase-switch" aria-label="Кейсы направления"></nav>
+            <h2 class="showcase__title" id="showcase-title"></h2>
+            <div class="showcase__gallery" id="showcase-gallery"></div>
+            <p class="showcase__text" id="showcase-text"></p>
+            <a class="showcase__more" id="showcase-more" href="./projects.html">подробнее</a>
+          </section>
+        </div>
       </div>
       <div class="journey-modal" id="journey-modal" aria-hidden="true">
         <div class="journey-modal__backdrop" data-journey-close></div>
@@ -179,10 +181,10 @@
         }
       }
     </script>
-    <script src="./cases.js?v=fig-36"></script>
-    <script src="./script.js?v=fig-36"></script>
-    <script src="./glass.js?v=fig-36"></script>
-    <script src="./bubbles.js?v=fig-36"></script>
-    <script type="module" src="./character.js?v=fig-36"></script>
+    <script src="./cases.js?v=fig-38"></script>
+    <script src="./script.js?v=fig-38"></script>
+    <script src="./glass.js?v=fig-38"></script>
+    <script src="./bubbles.js?v=fig-38"></script>
+    <script type="module" src="./character.js?v=fig-38"></script>
   </body>
 </html>

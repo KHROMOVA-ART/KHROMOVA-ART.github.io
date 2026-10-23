@@ -62,6 +62,7 @@
   const item = cases[index];
   document.title = `${item.title} — Екатерина Хромова`;
 
+  // структура рассказа: шапка → обложка → разделы (основное, исследование, процесс, результат) → ещё кейсы
   const head = el("header", "case__head");
   const labels = el("p", "case__labels", [item.discipline, item.stage].filter(Boolean).join(" • "));
   // слова через дефис не разрываем («ии-киностудии» целиком на одной строке)
@@ -70,6 +71,8 @@
     if (part.includes("-")) title.append(el("span", "case__nowrap", part));
     else if (part) title.append(part);
   });
+  head.append(labels, title);
+  if (item.subtitle) head.append(el("p", "case__subtitle", item.subtitle));
   const tagRow = el("div", "case__tags");
   for (const t of item.tags) {
     const a = el("a", "case__tag", tags[t]);
@@ -83,13 +86,15 @@
     a.rel = "noopener";
     tagRow.append(a);
   }
-  head.append(labels, title, tagRow);
+  head.append(tagRow);
 
-  const intro = el("div", "case__intro");
-  for (const p of item.intro || []) intro.append(el("p", null, p));
-
-  const gallery = el("div", "case__gallery");
-  item.gallery.forEach((g, i) => {
+  // картинка по имени файла → кнопка, открывающая её в просмотрщике
+  const shownImages = new Set();
+  const shot = (src, eager) => {
+    const i = item.gallery.findIndex((g) => g.src === src);
+    if (i < 0) return null;
+    shownImages.add(src);
+    const g = item.gallery[i];
     const fig = el("figure", "case__shot");
     const button = el("button", "case__shot-button");
     button.type = "button";
@@ -97,27 +102,83 @@
     const image = el("img");
     image.src = img(item, g.src);
     image.alt = g.caption || "";
-    image.loading = i < 2 ? "eager" : "lazy";
+    image.loading = eager ? "eager" : "lazy";
     button.append(image);
     button.addEventListener("click", () => openLightbox(i));
     fig.append(button);
     if (g.caption) fig.append(el("figcaption", null, g.caption));
-    gallery.append(fig);
-  });
+    return fig;
+  };
+  const shots = (list, cls = "case__gallery") => {
+    const grid = el("div", cls);
+    for (const src of list) {
+      const f = shot(src);
+      if (f) grid.append(f);
+    }
+    return grid;
+  };
 
-  const next = cases[(index + 1) % cases.length];
-  const footer = el("footer", "case__footer");
-  if (next && next !== item) {
-    const a = el("a", "case__next");
-    a.href = caseUrl(next);
-    a.append(el("span", "case__next-label", "следующий проект"), el("span", "case__next-title", next.title));
-    footer.append(a);
+  const cover = el("div", "case__cover");
+  const coverShot = shot(item.cover, true);
+  if (coverShot) cover.append(coverShot);
+
+  const body = [];
+  if (item.sections) {
+    for (const section of item.sections) {
+      const block = el("section", "case-section");
+      block.append(el("h2", "case-section__title", section.title));
+      const content = el("div", "case-section__body");
+      for (const part of section.items || []) {
+        const unit = el("div", "case-section__item");
+        if (part.heading) unit.append(el("h3", "case-section__heading", part.heading));
+        for (const p of [].concat(part.text || [])) unit.append(el("p", "case-section__text", p));
+        if (part.list) {
+          const ul = el("ul", "case-section__list");
+          for (const li of part.list) ul.append(el("li", null, li));
+          unit.append(ul);
+        }
+        content.append(unit);
+        if (part.images) content.append(shots(part.images));
+      }
+      block.append(content);
+      if (section.images) block.append(shots(section.images, "case__gallery case-section__wide"));
+      body.push(block);
+    }
+  } else {
+    const intro = el("div", "case__intro");
+    for (const p of item.intro || []) intro.append(el("p", null, p));
+    body.push(intro);
   }
+
+  // всё, что не попало в разделы, — отдельной галереей в конце
+  const rest = item.gallery.map((g) => g.src).filter((src) => !shownImages.has(src));
+  if (rest.length) {
+    if (item.sections) {
+      const block = el("section", "case-section");
+      block.append(el("h2", "case-section__title", "галерея"));
+      block.append(shots(rest, "case__gallery case-section__wide"));
+      body.push(block);
+    } else {
+      body.push(shots(rest));
+    }
+  }
+
+  // ещё кейсы: до трёх следующих по списку
+  const footer = el("footer", "case__footer");
+  const others = [1, 2, 3].map((k) => cases[(index + k) % cases.length]).filter((c, k, arr) => c !== item && arr.indexOf(c) === k);
+  const moreHead = el("div", "case__more-head");
+  moreHead.append(el("h2", "case-section__title", "ещё кейсы"));
   const all = el("a", "case__all", "все проекты →");
   all.href = "./projects.html";
-  footer.append(all);
+  moreHead.append(all);
+  footer.append(moreHead);
+  if (others.length) {
+    const grid = el("div", "projects__grid case__more");
+    for (const c of others) grid.append(card(c));
+    footer.append(grid);
+  }
 
-  root.replaceChildren(head, intro, gallery, footer);
+  root.replaceChildren(head, cover, ...body, footer);
 
   // --- просмотр картинок на весь экран ---
   const box = document.getElementById("lightbox");
