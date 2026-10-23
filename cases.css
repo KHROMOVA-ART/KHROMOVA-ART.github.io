@@ -350,6 +350,16 @@
 }
 
 @media (max-width: 760px) {
+  /* длинные слова через дефис не переносятся — кегль от ширины экрана, чтобы влезали */
+  .case__title {
+    font-size: clamp(24px, 7.4vw, 56px);
+    line-height: 1;
+  }
+
+  .projects__title {
+    font-size: 8.9vw;
+  }
+
   .case__gallery {
     grid-template-columns: 1fr;
   }
