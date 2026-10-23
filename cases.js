@@ -11,6 +11,7 @@ window.CASE_TAGS = {
   vibe: "вайбкодинг",
   web: "веб-дизайн",
   type: "типографика",
+  industrial: "промышленный дизайн",
 };
 
 window.CASES = [
@@ -612,8 +613,8 @@ window.CASES = [
     id: "transformer-table",
     title: "Столик-трансформер по мотивам древнеславянской игрушки",
     subtitle: "Детский куб-трансформер: столик превращается в домик, стул — в лошадку-качалку, а резные стенки становятся развивающей игрой.",
-    tags: ["env", "product"],
-    discipline: "предметный дизайн",
+    tags: ["industrial"],
+    discipline: "промышленный дизайн",
     stage: "учебный проект",
     cover: "viz-house.jpg",
     intro: [

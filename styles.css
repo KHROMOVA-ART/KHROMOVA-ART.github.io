@@ -716,6 +716,7 @@ body {
 .hero__bubble--vibe { width: clamp(136px, 9vw, 153px); left: 89%; top: 50%; animation-delay: 2.2s; }
 .hero__bubble--web { width: clamp(138px, 9vw, 156px); left: 18%; top: 70%; animation-delay: 0.3s; }
 .hero__bubble--type { width: clamp(140px, 9vw, 160px); left: 90%; top: 66%; animation-delay: 1.6s; }
+.hero__bubble--industrial { width: clamp(144px, 10vw, 175px); left: 10%; top: 66%; animation-delay: 2s; }
 
 .hero__footer {
   position: absolute;
@@ -1160,18 +1161,19 @@ main {
   }
 
   .hero__bubble--env { width: 140px; left: auto; right: 30px; top: 92px; }
-  .hero__bubble--ai { width: 129px; left: auto; right: 30px; top: 170px; }
-  .hero__bubble--product { width: 140px; left: auto; right: 30px; top: 248px; }
-  .hero__bubble--web { width: 126px; left: auto; right: 30px; top: 326px; }
-  .hero__bubble--vibe { width: 124px; left: auto; right: 30px; top: 404px; }
-  .hero__bubble--pres { width: 141px; left: auto; right: 30px; top: 482px; }
-  .hero__bubble--brand { width: 111px; left: auto; right: 30px; top: 560px; }
-  .hero__bubble--type { width: 124px; left: auto; right: 30px; top: 716px; }
+  .hero__bubble--ai { width: 129px; left: auto; right: 30px; top: 162px; }
+  .hero__bubble--product { width: 140px; left: auto; right: 30px; top: 232px; }
+  .hero__bubble--web { width: 126px; left: auto; right: 30px; top: 302px; }
+  .hero__bubble--vibe { width: 124px; left: auto; right: 30px; top: 372px; }
+  .hero__bubble--pres { width: 141px; left: auto; right: 30px; top: 442px; }
+  .hero__bubble--brand { width: 111px; left: auto; right: 30px; top: 512px; }
+  .hero__bubble--type { width: 124px; left: auto; right: 30px; top: 652px; }
+  .hero__bubble--industrial { width: 140px; left: auto; right: 30px; top: 722px; }
   .hero__bubble--motion {
     width: 208px;
     left: auto;
     right: 30px;
-    top: 638px;
+    top: 582px;
     padding: 12px 18px 18px;
     font-size: 12.5px;
     line-height: 1.05;
@@ -1312,18 +1314,19 @@ main {
   }
 
   .hero__bubble--env { width: 140px; left: auto; right: 30px; top: 92px; }
-  .hero__bubble--ai { width: 129px; left: auto; right: 30px; top: 170px; }
-  .hero__bubble--product { width: 140px; left: auto; right: 30px; top: 248px; }
-  .hero__bubble--web { width: 126px; left: auto; right: 30px; top: 326px; }
-  .hero__bubble--vibe { width: 124px; left: auto; right: 30px; top: 404px; }
-  .hero__bubble--pres { width: 141px; left: auto; right: 30px; top: 482px; }
-  .hero__bubble--brand { width: 111px; left: auto; right: 30px; top: 560px; }
-  .hero__bubble--type { width: 124px; left: auto; right: 30px; top: 716px; }
+  .hero__bubble--ai { width: 129px; left: auto; right: 30px; top: 162px; }
+  .hero__bubble--product { width: 140px; left: auto; right: 30px; top: 232px; }
+  .hero__bubble--web { width: 126px; left: auto; right: 30px; top: 302px; }
+  .hero__bubble--vibe { width: 124px; left: auto; right: 30px; top: 372px; }
+  .hero__bubble--pres { width: 141px; left: auto; right: 30px; top: 442px; }
+  .hero__bubble--brand { width: 111px; left: auto; right: 30px; top: 512px; }
+  .hero__bubble--type { width: 124px; left: auto; right: 30px; top: 652px; }
+  .hero__bubble--industrial { width: 140px; left: auto; right: 30px; top: 722px; }
   .hero__bubble--motion {
     width: 208px;
     left: auto;
     right: 30px;
-    top: 638px;
+    top: 582px;
     padding: 12px 18px 18px;
     font-size: 12.5px;
     line-height: 1.05;
@@ -1426,22 +1429,23 @@ main {
   }
 
   .hero__bubble--env { width: 140px; left: auto; right: 30px; top: 119px; }
-  .hero__bubble--product { width: 140px; left: auto; right: 30px; top: 263px; }
+  .hero__bubble--product { width: 140px; left: auto; right: 30px; top: 247px; }
   .hero__bubble--motion {
     width: 208px;
     left: auto;
     right: 30px;
-    top: 623px;
+    top: 567px;
     padding: 12px 18px 18px;
     font-size: 12.5px;
     line-height: 1.05;
   }
-  .hero__bubble--brand { width: 111px; left: auto; right: 30px; top: 551px; }
-  .hero__bubble--type { width: 124px; left: auto; right: 30px; top: 695px; }
-  .hero__bubble--pres { width: 141px; left: auto; right: 30px; top: 479px; }
-  .hero__bubble--ai { width: 129px; left: auto; right: 30px; top: 191px; }
-  .hero__bubble--vibe { width: 124px; left: auto; right: 30px; top: 407px; }
-  .hero__bubble--web { width: 126px; left: auto; right: 30px; top: 335px; }
+  .hero__bubble--brand { width: 111px; left: auto; right: 30px; top: 503px; }
+  .hero__bubble--type { width: 124px; left: auto; right: 30px; top: 631px; }
+  .hero__bubble--industrial { width: 140px; left: auto; right: 30px; top: 695px; }
+  .hero__bubble--pres { width: 141px; left: auto; right: 30px; top: 439px; }
+  .hero__bubble--ai { width: 129px; left: auto; right: 30px; top: 183px; }
+  .hero__bubble--vibe { width: 124px; left: auto; right: 30px; top: 375px; }
+  .hero__bubble--web { width: 126px; left: auto; right: 30px; top: 311px; }
 
   .hero__bottom-nav {
     gap: 6px;
@@ -1494,7 +1498,8 @@ main {
   }
 
   /* подпись теперь в две строки — бабл той же ширины, что «средовой» и «продуктовый дизайн» */
-  .hero__bubble--motion {
+  .hero__bubble--motion,
+  .hero__bubble--industrial {
     width: 140px;
   }
 }
