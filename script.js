@@ -212,7 +212,10 @@ if (sectionModal) {
 
   window.openSectionModal = (bubble) => {
     const tag = bubble.dataset.section;
-    const items = (window.CASES || []).filter((c) => c.tags.includes(tag));
+    // сначала кейсы, для которых это направление основное (первый тег), потом остальные
+    const items = (window.CASES || [])
+      .filter((c) => c.tags.includes(tag))
+      .sort((a, b) => a.tags.indexOf(tag) - b.tags.indexOf(tag));
     sectionLabel.textContent = bubble.innerText.replace(/\s+/g, " ").trim();
     switcher.replaceChildren(
       ...(items.length > 1
