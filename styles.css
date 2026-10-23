@@ -1700,15 +1700,23 @@ main {
 .showcase__gallery img {
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  height: 100%;
+  min-height: 0;
   object-fit: cover;
   border-radius: 14px;
   background: #ece8e4;
 }
 
+/* витрина одной высоты для любого кейса (две строки плиток 16:9), чтобы окно не прыгало при переключении */
+@media (min-width: 761px) {
+  .showcase__gallery {
+    grid-template-rows: 1fr 1fr;
+    aspect-ratio: 3.55 / 1;
+  }
+}
+
 .showcase__cover {
   grid-row: span 2;
-  height: 100%;
 }
 
 .showcase__text {
@@ -1802,6 +1810,8 @@ main {
 
   .showcase__gallery img {
     flex: 0 0 86%;
+    height: auto;
+    aspect-ratio: 16 / 9;
     border-radius: 12px;
     scroll-snap-align: start;
   }

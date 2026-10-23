@@ -226,9 +226,33 @@ if (sectionModal) {
           })
         : []),
     );
+    currentItems = items;
+    lockTextHeights();
     showCase(items, 0, bubble.dataset.sectionText);
     openModal(sectionModal);
   };
+
+  // заголовок и описание занимают столько места, сколько у самого длинного кейса раздела,
+  // поэтому при переключении кейсов окно не меняет размер
+  let currentItems = [];
+  const lockTextHeights = () => {
+    title.style.minHeight = text.style.minHeight = "";
+    let titleH = 0;
+    let textH = 0;
+    currentItems.forEach((item, i) => {
+      showCase(currentItems, i);
+      titleH = Math.max(titleH, title.offsetHeight);
+      textH = Math.max(textH, text.offsetHeight);
+    });
+    if (titleH) title.style.minHeight = `${titleH}px`;
+    if (textH) text.style.minHeight = `${textH}px`;
+  };
+  window.addEventListener("resize", () => {
+    if (!sectionModal.classList.contains("is-open") || currentItems.length < 2) return;
+    const active = [...switcher.children].findIndex((b) => b.classList.contains("is-active"));
+    lockTextHeights();
+    showCase(currentItems, Math.max(active, 0));
+  });
 }
 
 if (topbar && topbarMenuButton) {
