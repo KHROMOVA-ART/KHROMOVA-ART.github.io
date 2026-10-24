@@ -433,6 +433,104 @@
   font-size: 15px;
 }
 
+/* --- архив инструментов: слева описание, справа файлы на скачивание --- */
+
+.tools__lead {
+  margin: 8px 0 clamp(32px, 4vw, 56px);
+  font-family: "Cygre Light", "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(19px, 1.6vw, 28px);
+}
+
+.tools {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tools__item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 20px clamp(24px, 4vw, 80px);
+  padding: 28px 0;
+  border-top: 1px solid rgba(49, 39, 35, 0.12);
+}
+
+.tools__title {
+  margin: 0 0 10px;
+  font-family: "Cygre Medium", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 400;
+  font-size: clamp(24px, 2.2vw, 40px);
+  line-height: 1;
+  text-transform: lowercase;
+}
+
+.tools__text {
+  margin: 0;
+  max-width: 560px;
+  font-family: "Cygre Light", "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(17px, 1.15vw, 21px);
+  line-height: 1.35;
+}
+
+.tools__files {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tools__file {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 20px;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow:
+    inset 1.5px 1.5px 0 rgba(255, 255, 255, 0.95),
+    inset -1px -1px 0 rgba(255, 255, 255, 0.5),
+    0 -2.28px 8.9px rgba(167, 178, 235, 0.38),
+    0 1.19px 8.9px rgba(255, 255, 255, 0.38);
+  color: #312723;
+  text-decoration: none;
+  transition: scale 400ms cubic-bezier(0.34, 1.7, 0.5, 1);
+}
+
+.tools__file:hover {
+  scale: 1.02;
+}
+
+.tools__file-name {
+  font-family: "Cygre Medium", "Helvetica Neue", Arial, sans-serif;
+  font-size: 17px;
+  overflow-wrap: anywhere;
+}
+
+.tools__file-note {
+  color: #6e6765;
+  font-family: "Cygre Light", "Helvetica Neue", Arial, sans-serif;
+  font-size: 15px;
+}
+
+.tools__file-icon {
+  margin-left: auto;
+  font-size: 18px;
+}
+
+.tools__soon {
+  color: #6e6765;
+  font-family: "Cygre Light", "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+}
+
+@media (max-width: 760px) {
+  .tools__item {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 760px) {
   /* длинные слова через дефис не переносятся — кегль от ширины экрана, чтобы влезали */
   .case__title {
@@ -464,4 +562,12 @@
   .lightbox__arrow {
     display: none;
   }
+}
+
+.tools__image {
+  display: block;
+  width: 100%;
+  max-width: 560px;
+  margin-top: 20px;
+  border-radius: 18px;
 }
