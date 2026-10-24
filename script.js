@@ -173,6 +173,7 @@ if (sectionModal) {
   const gallery = document.getElementById("showcase-gallery");
   const text = document.getElementById("showcase-text");
   const more = document.getElementById("showcase-more");
+  const related = document.getElementById("showcase-related");
 
   const showCase = (items, i, emptyText) => {
     const item = items[i];
@@ -217,6 +218,8 @@ if (sectionModal) {
       .filter((c) => c.tags.includes(tag))
       .sort((a, b) => a.tags.indexOf(tag) - b.tags.indexOf(tag));
     sectionLabel.textContent = bubble.innerText.replace(/\s+/g, " ").trim();
+    // вайбкодинг тесно связан с архивом инструментов — даём перейти туда прямо из окна
+    related.hidden = tag !== "vibe";
     switcher.replaceChildren(
       ...(items.length > 1
         ? items.map((item, i) => {
