@@ -1958,3 +1958,62 @@ main {
     transform: translate(var(--dx), calc(var(--dy) + 24px)) scale(0.3);
   }
 }
+
+/* фон окна раздела мутнеет плавно с момента клика по баблу и так же плавно проясняется при закрытии */
+.orbit-modal,
+.orbit-modal.is-open {
+  opacity: 1;
+}
+
+.orbit-modal {
+  transition: visibility 0s linear 700ms;
+}
+
+.orbit-modal.is-open {
+  transition: visibility 0s;
+}
+
+.orbit-modal .journey-modal__backdrop {
+  background: rgba(49, 39, 35, 0);
+  -webkit-backdrop-filter: blur(0);
+  backdrop-filter: blur(0);
+  transition:
+    background 700ms ease,
+    -webkit-backdrop-filter 700ms ease,
+    backdrop-filter 700ms ease;
+}
+
+.orbit-modal.is-open .journey-modal__backdrop {
+  background: rgba(49, 39, 35, 0.18);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  transition:
+    background 1100ms cubic-bezier(0.22, 1, 0.36, 1),
+    -webkit-backdrop-filter 1100ms cubic-bezier(0.22, 1, 0.36, 1),
+    backdrop-filter 1100ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.orbit-modal .orbit__title,
+.orbit-modal .orbit__close,
+.orbit-modal .orbit__related,
+.orbit-modal .orbit__empty {
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+
+.orbit-modal.is-open .orbit__title,
+.orbit-modal.is-open .orbit__close,
+.orbit-modal.is-open .orbit__related,
+.orbit-modal.is-open .orbit__empty {
+  opacity: 1;
+  transition: opacity 700ms ease 150ms;
+}
+
+/* у кружка закрытия сохраняем пружинку при наведении */
+.orbit-modal .orbit__close {
+  transition: opacity 400ms ease, scale 500ms cubic-bezier(0.34, 1.7, 0.5, 1);
+}
+
+.orbit-modal.is-open .orbit__close {
+  transition: opacity 700ms ease 150ms, scale 500ms cubic-bezier(0.34, 1.7, 0.5, 1);
+}
