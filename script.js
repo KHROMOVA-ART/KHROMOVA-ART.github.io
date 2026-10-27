@@ -163,52 +163,59 @@ if (journeyTrigger && journeyModal) {
   }
 }
 
-// окно раздела по клику на бабл: витрина кейса — заголовок, картинки, пара строк и «подробнее»
-// (клик отличает от перетаскивания bubbles.js)
+// окно раздела по клику на бабл: из него выплывают круглые пузыри проектов с заставками,
+// клик по пузырю ведёт на страницу кейса (клик отличает от перетаскивания bubbles.js)
 const sectionModal = document.getElementById("section-modal");
 if (sectionModal) {
-  const sectionLabel = document.getElementById("showcase-section");
-  const switcher = document.getElementById("showcase-switch");
-  const title = document.getElementById("showcase-title");
-  const gallery = document.getElementById("showcase-gallery");
-  const text = document.getElementById("showcase-text");
-  const more = document.getElementById("showcase-more");
-  const related = document.getElementById("showcase-related");
+  const title = document.getElementById("orbit-title");
+  const stage = document.getElementById("orbit-stage");
+  const related = document.getElementById("orbit-related");
+  let current = null; // { items, origin } — чтобы переразложить пузыри при смене размера окна
 
-  const showCase = (items, i, emptyText) => {
-    const item = items[i];
-    switcher.querySelectorAll("button").forEach((b, n) => b.classList.toggle("is-active", n === i));
-    if (!item) {
-      title.textContent = "скоро здесь появятся кейсы";
-      gallery.replaceChildren();
-      text.textContent = emptyText || "";
-      more.hidden = true;
-      return;
+  // раскладка: столько рядов, чтобы пузыри получились как можно крупнее и все влезли
+  const layout = (n, w, h) => {
+    const gap = 1.16;
+    const cap = Math.min(340, Math.max(150, Math.min(w, h) * 0.46));
+    let best = { rows: 1, d: 0 };
+    for (let rows = 1; rows <= n; rows++) {
+      const perRow = Math.ceil(n / rows);
+      // запас по высоте на покачивание и разнобой рядов
+      const d = Math.min(cap, w / (perRow * gap), h / (rows * gap + 0.15));
+      // лишний ряд берём, только если пузыри от этого заметно крупнее
+      if (d > best.d * 1.2) best = { rows, d };
     }
-    // слова через дефис не разрываем («ии-киностудии» целиком)
-    title.replaceChildren(
-      ...item.title.split(/(\S+-\S+)/).filter(Boolean).map((part) => {
-        if (!part.includes("-")) return part;
-        const span = document.createElement("span");
-        span.style.whiteSpace = "nowrap";
-        span.textContent = part;
-        return span;
-      }),
-    );
-    // витрина: обложка крупно + до четырёх картинок из галереи
-    const shots = [item.cover, ...item.gallery.map((g) => g.src).filter((src) => src !== item.cover)].slice(0, 5);
-    gallery.replaceChildren(
-      ...shots.map((src, n) => {
-        const img = document.createElement("img");
-        img.src = window.caseImage(item, src);
-        img.alt = n === 0 ? item.title : "";
-        img.className = n === 0 ? "showcase__cover" : "showcase__thumb";
-        return img;
-      }),
-    );
-    text.textContent = (item.intro && item.intro[0]) || "";
-    more.hidden = false;
-    more.href = `./case.html?id=${encodeURIComponent(item.id)}`;
+    const d = best.d;
+    const perRow = Math.ceil(n / best.rows);
+    const points = [];
+    for (let i = 0; i < n; i++) {
+      const row = Math.floor(i / perRow);
+      const inRow = Math.min(perRow, n - row * perRow);
+      const col = i % perRow;
+      // лёгкий разнобой по высоте, чтобы пузыри висели не по линейке
+      const drift = (((i * 37) % 7) - 3) * d * 0.035;
+      points.push({
+        x: w / 2 + (col - (inRow - 1) / 2) * d * gap,
+        y: h / 2 + (row - (best.rows - 1) / 2) * d * gap + drift,
+      });
+    }
+    return { d, points };
+  };
+
+  const place = (animate) => {
+    if (!current) return;
+    const { items, origin } = current;
+    const box = stage.getBoundingClientRect();
+    const { d, points } = layout(items.length, box.width, box.height);
+    [...stage.children].forEach((node, i) => {
+      const p = points[i];
+      node.style.width = node.style.height = `${d}px`;
+      node.style.left = `${p.x - d / 2}px`;
+      node.style.top = `${p.y - d / 2}px`;
+      node.style.setProperty("--fx", `${origin.x - box.left - p.x}px`);
+      node.style.setProperty("--fy", `${origin.y - box.top - p.y}px`);
+      node.style.animationDelay = `${i * 90}ms`;
+      if (!animate) node.style.animation = "none";
+    });
   };
 
   window.openSectionModal = (bubble) => {
@@ -217,47 +224,45 @@ if (sectionModal) {
     const items = (window.CASES || [])
       .filter((c) => c.tags.includes(tag))
       .sort((a, b) => a.tags.indexOf(tag) - b.tags.indexOf(tag));
-    sectionLabel.textContent = bubble.innerText.replace(/\s+/g, " ").trim();
-    // вайбкодинг тесно связан с архивом инструментов — даём перейти туда прямо из окна
+    title.textContent = bubble.innerText.replace(/\s+/g, " ").trim();
+    // вайбкодинг тесно связан с архивом инструментов — даём перейти туда прямо отсюда
     related.hidden = tag !== "vibe";
-    switcher.replaceChildren(
-      ...(items.length > 1
-        ? items.map((item, i) => {
-            const b = document.createElement("button");
-            b.type = "button";
-            b.className = "showcase__switch-item";
-            b.textContent = item.title;
-            b.addEventListener("click", () => showCase(items, i));
-            return b;
-          })
-        : []),
-    );
-    currentItems = items;
-    lockTextHeights();
-    showCase(items, 0, bubble.dataset.sectionText);
+
+    const r = bubble.getBoundingClientRect();
+    current = { items, origin: { x: r.left + r.width / 2, y: r.top + r.height / 2 } };
+    stage.classList.toggle("is-empty", !items.length);
+    if (!items.length) {
+      stage.replaceChildren(
+        Object.assign(document.createElement("p"), {
+          className: "orbit__empty",
+          textContent: `скоро здесь появятся кейсы. ${bubble.dataset.sectionText || ""}`.trim(),
+        }),
+      );
+      current = null;
+    } else {
+      stage.replaceChildren(
+        ...items.map((item) => {
+          const wrap = document.createElement("div");
+          wrap.className = "orbit__item";
+          const a = document.createElement("a");
+          a.className = "orbit__bubble";
+          a.href = `./case.html?id=${encodeURIComponent(item.id)}`;
+          a.setAttribute("aria-label", item.title);
+          const img = document.createElement("img");
+          img.src = window.caseImage(item, item.cover);
+          img.alt = "";
+          a.append(img);
+          wrap.append(a);
+          return wrap;
+        }),
+      );
+    }
     openModal(sectionModal);
+    place(true);
   };
 
-  // заголовок и описание занимают столько места, сколько у самого длинного кейса раздела,
-  // поэтому при переключении кейсов окно не меняет размер
-  let currentItems = [];
-  const lockTextHeights = () => {
-    title.style.minHeight = text.style.minHeight = "";
-    let titleH = 0;
-    let textH = 0;
-    currentItems.forEach((item, i) => {
-      showCase(currentItems, i);
-      titleH = Math.max(titleH, title.offsetHeight);
-      textH = Math.max(textH, text.offsetHeight);
-    });
-    if (titleH) title.style.minHeight = `${titleH}px`;
-    if (textH) text.style.minHeight = `${textH}px`;
-  };
   window.addEventListener("resize", () => {
-    if (!sectionModal.classList.contains("is-open") || currentItems.length < 2) return;
-    const active = [...switcher.children].findIndex((b) => b.classList.contains("is-active"));
-    lockTextHeights();
-    showCase(currentItems, Math.max(active, 0));
+    if (sectionModal.classList.contains("is-open")) place(false);
   });
 }
 

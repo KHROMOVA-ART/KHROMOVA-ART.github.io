@@ -15,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./styles.css?v=fig-59" />
+    <link rel="stylesheet" href="./styles.css?v=fig-60" />
   </head>
   <body>
     <div class="loader" id="loader" aria-live="polite">
@@ -141,22 +141,14 @@
       <section class="library-anchor" id="projects-library" aria-label="Библиотека проектов"></section>
       <section class="library-anchor" id="archive-library" aria-label="Библиотека архивных проектов"></section>
 
-      <div class="journey-modal" id="section-modal" aria-hidden="true">
+      <div class="journey-modal orbit-modal" id="section-modal" aria-hidden="true">
         <div class="journey-modal__backdrop" data-journey-close></div>
-        <div class="showcase-frame" role="dialog" aria-modal="true" aria-labelledby="showcase-title">
-          <button class="showcase__close" type="button" aria-label="Закрыть окно" data-journey-close data-glass-lens data-glass-round data-glass-bezel="30" data-glass-scale="40"><span aria-hidden="true">x</span></button>
-          <section class="showcase">
-            <header class="showcase__top">
-              <span class="showcase__section" id="showcase-section"></span>
-              <a class="showcase__related" id="showcase-related" href="./tools.html" hidden>архив дизайн-инструментов →</a>
-            </header>
-            <nav class="showcase__switch" id="showcase-switch" aria-label="Кейсы направления"></nav>
-            <h2 class="showcase__title" id="showcase-title"></h2>
-            <div class="showcase__gallery" id="showcase-gallery"></div>
-            <p class="showcase__text" id="showcase-text"></p>
-            <a class="showcase__more" id="showcase-more" href="./projects.html">подробнее</a>
-          </section>
-        </div>
+        <button class="showcase__close orbit__close" type="button" aria-label="Закрыть" data-journey-close data-glass-lens data-glass-round data-glass-bezel="30" data-glass-scale="40"><span aria-hidden="true">x</span></button>
+        <section class="orbit" role="dialog" aria-modal="true" aria-labelledby="orbit-title">
+          <h2 class="orbit__title" id="orbit-title"></h2>
+          <div class="orbit__stage" id="orbit-stage"></div>
+          <a class="orbit__related" id="orbit-related" href="./tools.html" hidden>архив дизайн-инструментов →</a>
+        </section>
       </div>
       <div class="journey-modal" id="journey-modal" aria-hidden="true">
         <div class="journey-modal__backdrop" data-journey-close></div>
@@ -184,10 +176,10 @@
         }
       }
     </script>
-    <script src="./cases.js?v=fig-59"></script>
-    <script src="./script.js?v=fig-59"></script>
-    <script src="./glass.js?v=fig-59"></script>
-    <script src="./bubbles.js?v=fig-59"></script>
-    <script type="module" src="./character.js?v=fig-59"></script>
+    <script src="./cases.js?v=fig-60"></script>
+    <script src="./script.js?v=fig-60"></script>
+    <script src="./glass.js?v=fig-60"></script>
+    <script src="./bubbles.js?v=fig-60"></script>
+    <script type="module" src="./character.js?v=fig-60"></script>
   </body>
 </html>

@@ -1979,3 +1979,184 @@ main {
     padding-bottom: 18px;
   }
 }
+
+/* --- окно раздела: круглые пузыри проектов выплывают из нажатого бабла --- */
+
+.orbit {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  justify-items: center;
+  gap: 12px;
+  padding: clamp(28px, 5vh, 56px) clamp(16px, 4vw, 72px) clamp(24px, 5vh, 48px);
+  /* пустые места пропускают клик к фону — он закрывает окно */
+  pointer-events: none;
+}
+
+.orbit__title {
+  margin: 0;
+  color: #312723;
+  font-family: "Bimbo", "Cygre Book", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 400;
+  font-size: clamp(22px, 2vw, 34px);
+  line-height: 1.2;
+  text-transform: uppercase;
+  text-shadow: 0 1px 12px rgba(255, 255, 255, 0.8);
+}
+
+.orbit__stage {
+  position: relative;
+  width: 100%;
+  min-height: 0;
+}
+
+.orbit__item {
+  position: absolute;
+  animation: orbitEmerge 1300ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.orbit__bubble {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  isolation: isolate;
+  background: #ece8e4;
+  pointer-events: auto;
+  box-shadow:
+    0 1.14px 1.14px rgba(253, 219, 146, 0.3),
+    0 -3px 14px rgba(167, 178, 235, 0.45),
+    0 18px 40px rgba(49, 39, 35, 0.18);
+  animation: orbitFloat 6.5s ease-in-out infinite;
+  transition: scale 700ms cubic-bezier(0.22, 1.4, 0.4, 1), box-shadow 400ms ease;
+}
+
+.orbit__item:nth-child(2n) .orbit__bubble { animation-duration: 7.4s; animation-delay: -2s; }
+.orbit__item:nth-child(3n) .orbit__bubble { animation-duration: 5.8s; animation-delay: -3.5s; }
+
+.orbit__bubble img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* стекло поверх картинки: блик сверху, объём по краю и перламутровый кант */
+.orbit__bubble::before,
+.orbit__bubble::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.orbit__bubble::before {
+  z-index: 1;
+  background:
+    radial-gradient(42% 30% at 32% 18%, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0) 70%),
+    radial-gradient(farthest-side, rgba(255, 255, 255, 0) 78%, rgba(255, 255, 255, 0.35) 96%);
+  box-shadow:
+    inset 3px 3px 0 rgba(255, 255, 255, 0.85),
+    inset -2px -2px 0 rgba(255, 255, 255, 0.4),
+    inset 0 0 26px rgba(255, 255, 255, 0.45);
+}
+
+.orbit__bubble::after {
+  z-index: 2;
+  padding: 2px;
+  background: conic-gradient(
+    from var(--pearl-angle, 0deg),
+    #fff, #ffc8e6 12%, #fff 25%, #c8e2ff 40%, #fff 55%, #d6ffe9 68%, #fff 80%, #e4d0ff 90%, #fff
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: 0.9;
+  animation: pearlSpin 12s linear infinite reverse;
+}
+
+.orbit__bubble:hover,
+.orbit__bubble:focus-visible {
+  scale: 1.07;
+  box-shadow:
+    0 1.14px 1.14px rgba(253, 219, 146, 0.35),
+    0 -3px 18px rgba(167, 178, 235, 0.55),
+    0 24px 50px rgba(49, 39, 35, 0.24);
+}
+
+.orbit__empty {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  max-width: 520px;
+  margin: auto;
+  color: #312723;
+  font-family: "Cygre Light", "Helvetica Neue", Arial, sans-serif;
+  font-size: 19px;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.orbit__related {
+  color: #312723;
+  font-family: "Bimbo", "Cygre Book", "Helvetica Neue", Arial, sans-serif;
+  font-size: 20px;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  text-transform: uppercase;
+  pointer-events: auto;
+  transition: opacity 180ms ease;
+}
+
+.orbit__related:hover {
+  opacity: 0.62;
+}
+
+.orbit__related[hidden] {
+  display: none;
+}
+
+.showcase__close.orbit__close {
+  position: fixed;
+  top: clamp(16px, 3vh, 32px);
+  right: clamp(16px, 2.6vw, 50px);
+}
+
+/* вылет из бабла раздела: мягко, без отскока */
+@keyframes orbitEmerge {
+  from {
+    transform: translate(var(--fx, 0), var(--fy, 0)) scale(0.12);
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@keyframes orbitFloat {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit__item,
+  .orbit__bubble {
+    animation: none;
+  }
+}
