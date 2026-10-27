@@ -2,8 +2,7 @@
 // Работает в Chromium (backdrop-filter: url()); в Safari/Firefox остаётся CSS-стекло из styles.css.
 // Настройки элемента: data-glass-round — круглая линза, data-glass-bezel — ширина кромки, data-glass-scale — сила преломления.
 (() => {
-  const bubbles = document.querySelectorAll(".hero__bubble, [data-glass-lens]");
-  if (!bubbles.length) return;
+  const bubbles = [...document.querySelectorAll(".hero__bubble, [data-glass-lens]")];
 
   const probe = document.createElement("div");
   probe.style.backdropFilter = "url(#x)";
@@ -84,7 +83,8 @@
       : Math.min(parseFloat(getComputedStyle(bubble).borderTopLeftRadius) || h / 2, h / 2);
     const bezel = glassBezel ? Number(glassBezel) : Math.min(h * 0.42, 22);
     const map = buildMap(w, h, r, bezel);
-    const id = `liquid-glass-${index}`;
+    // у пузырей, которые появляются и исчезают (окно раздела), постоянный id — фильтры не копятся
+    const id = bubble.dataset.glassId ? `liquid-glass-${bubble.dataset.glassId}` : `liquid-glass-${index}`;
     const S = glassScale ? Number(glassScale) : 34;
 
     let filter = svg.querySelector(`#${id}`);
@@ -115,8 +115,22 @@
   };
 
   const renderAll = () => bubbles.forEach(render);
-  const ro = new ResizeObserver(renderAll);
+  const ro = new ResizeObserver((entries) => entries.forEach((e) => render(e.target, bubbles.indexOf(e.target))));
   bubbles.forEach((b) => ro.observe(b));
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(renderAll);
   renderAll();
+
+  // линза для элементов, добавленных позже
+  window.liquidGlass = (el) => {
+    // убираем пузыри, которых уже нет на странице (первые — постоянные баблы — всегда на месте)
+    for (let i = bubbles.length - 1; i >= 0; i--) {
+      if (!bubbles[i].isConnected) {
+        ro.unobserve(bubbles[i]);
+        bubbles.splice(i, 1);
+      }
+    }
+    bubbles.push(el);
+    ro.observe(el);
+    render(el, bubbles.length - 1);
+  };
 })();

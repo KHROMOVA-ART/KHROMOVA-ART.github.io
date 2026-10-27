@@ -145,14 +145,20 @@ const closeModal = (modal) => {
   document.body.style.overflow = "";
 };
 
+// окно раздела закрывается своей анимацией (пузыри лопаются), остальные — сразу
+const requestClose = (modal) => {
+  if (modal.id === "section-modal" && window.popSectionModal) window.popSectionModal();
+  else closeModal(modal);
+};
+
 for (const item of journeyCloseItems) {
-  item.addEventListener("click", () => closeModal(item.closest(".journey-modal")));
+  item.addEventListener("click", () => requestClose(item.closest(".journey-modal")));
 }
 
 window.addEventListener("keydown", (event) => {
   const openedModal = document.querySelector(".journey-modal.is-open");
   if (event.key === "Escape" && openedModal) {
-    closeModal(openedModal);
+    requestClose(openedModal);
   }
 });
 
@@ -214,6 +220,10 @@ if (sectionModal) {
       node.style.setProperty("--fx", `${origin.x - box.left - p.x}px`);
       node.style.setProperty("--fy", `${origin.y - box.top - p.y}px`);
       node.style.animationDelay = `${i * 90}ms`;
+      // кромка линзы и сила преломления — от размера пузыря, чтобы на телефоне не было перебора
+      const glass = node.querySelector(".orbit__glass");
+      glass.dataset.glassBezel = Math.round(d * 0.15);
+      glass.dataset.glassScale = Math.round(d * 0.19);
       if (!animate) node.style.animation = "none";
     });
   };
@@ -241,17 +251,24 @@ if (sectionModal) {
       current = null;
     } else {
       stage.replaceChildren(
-        ...items.map((item) => {
+        ...items.map((item, i) => {
           const wrap = document.createElement("div");
           wrap.className = "orbit__item";
+          // пузырь: цветное пятно, на нём заставка со скруглёнными углами, сверху стеклянная линза
           const a = document.createElement("a");
           a.className = "orbit__bubble";
           a.href = `./case.html?id=${encodeURIComponent(item.id)}`;
           a.setAttribute("aria-label", item.title);
+          const blob = document.createElement("span");
+          blob.className = "orbit__blob";
           const img = document.createElement("img");
           img.src = window.caseImage(item, item.cover);
           img.alt = "";
-          a.append(img);
+          const glass = document.createElement("span");
+          glass.className = "orbit__glass";
+          glass.dataset.glassRound = "";
+          glass.dataset.glassId = `orbit-${i}`;
+          a.append(blob, img, glass);
           wrap.append(a);
           return wrap;
         }),
@@ -259,11 +276,50 @@ if (sectionModal) {
     }
     openModal(sectionModal);
     place(true);
+    // линзу считаем по готовому размеру пузыря
+    if (window.liquidGlass) stage.querySelectorAll(".orbit__glass").forEach((g) => window.liquidGlass(g));
   };
 
   window.addEventListener("resize", () => {
     if (sectionModal.classList.contains("is-open")) place(false);
   });
+
+  // закрытие: пузыри по очереди лопаются, разбрызгивая капли, и только потом гаснет фон
+  let popping = false;
+  window.popSectionModal = () => {
+    const bubbles = [...stage.querySelectorAll(".orbit__item")];
+    if (popping) return;
+    if (!bubbles.length || matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      closeModal(sectionModal);
+      return;
+    }
+    popping = true;
+    const step = 70;
+    // лопаются вразнобой, а не по порядку
+    const order = bubbles.map((_, i) => i).sort(() => Math.random() - 0.5);
+    order.forEach((index, k) => {
+      const node = bubbles[index];
+      node.style.setProperty("--pop-delay", `${k * step}ms`);
+      for (let i = 0; i < 9; i++) {
+        const drop = document.createElement("span");
+        drop.className = "orbit__drop";
+        const angle = (i / 9) * Math.PI * 2 + Math.random() * 0.5;
+        const reach = (node.offsetWidth / 2) * (1.05 + Math.random() * 0.45);
+        drop.style.setProperty("--dx", `${Math.cos(angle) * reach}px`);
+        drop.style.setProperty("--dy", `${Math.sin(angle) * reach}px`);
+        drop.style.setProperty("--size", `${8 + Math.random() * 12}px`);
+        node.append(drop);
+      }
+      node.classList.add("is-popping");
+    });
+    window.setTimeout(() => {
+      closeModal(sectionModal);
+      popping = false;
+      window.setTimeout(() => {
+        if (!sectionModal.classList.contains("is-open")) stage.replaceChildren();
+      }, 300);
+    }, bubbles.length * step + 420);
+  };
 }
 
 if (topbar && topbarMenuButton) {
