@@ -254,13 +254,11 @@ if (sectionModal) {
         ...items.map((item, i) => {
           const wrap = document.createElement("div");
           wrap.className = "orbit__item";
-          // пузырь: цветное пятно, на нём заставка со скруглёнными углами, сверху стеклянная линза
+          // пузырь: заставка на весь круг, сверху стеклянная линза
           const a = document.createElement("a");
           a.className = "orbit__bubble";
           a.href = `./case.html?id=${encodeURIComponent(item.id)}`;
           a.setAttribute("aria-label", item.title);
-          const blob = document.createElement("span");
-          blob.className = "orbit__blob";
           const img = document.createElement("img");
           img.src = window.caseImage(item, item.cover);
           img.alt = "";
@@ -268,7 +266,7 @@ if (sectionModal) {
           glass.className = "orbit__glass";
           glass.dataset.glassRound = "";
           glass.dataset.glassId = `orbit-${i}`;
-          a.append(blob, img, glass);
+          a.append(img, glass);
           wrap.append(a);
           return wrap;
         }),
