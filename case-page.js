@@ -104,7 +104,16 @@
     image.alt = g.caption || "";
     image.loading = eager ? "eager" : "lazy";
     button.append(image);
-    button.addEventListener("click", () => openLightbox(i));
+    if (g.board) {
+      // доска из Figma: по клику открывается на весь экран, её можно двигать и приближать
+      button.classList.add("case__board-button");
+      button.setAttribute("aria-label", `Рассмотреть доску: ${g.caption || "доска проекта"}`);
+      button.append(el("span", "case__board-label", "рассмотреть доску ↗"));
+      // путь от корня сайта («./assets/canvas/…») или внутри папки кейса
+      button.addEventListener("click", () => openBoard(g.board.startsWith("./") ? g.board : img(item, g.board)));
+    } else {
+      button.addEventListener("click", () => openLightbox(i));
+    }
     fig.append(button);
     if (g.caption) fig.append(el("figcaption", null, g.caption));
     return fig;
@@ -179,6 +188,84 @@
   }
 
   root.replaceChildren(head, cover, ...body, footer);
+
+  // --- доска на весь экран: доска Figma — плитки Deep Zoom (OpenSeadragon грузится только при открытии),
+  // канвас Obsidian (canvas.json) — рисуется сам, см. canvas-board.js ---
+  const board = document.getElementById("board");
+  const canvasEl = document.getElementById("board-canvas");
+  let viewer = null;
+  let canvasBoard = null;
+  let osdLoading = null;
+  const loadOsd = () =>
+    osdLoading ||
+    (osdLoading = new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src = "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/openseadragon.min.js";
+      script.onload = resolve;
+      script.onerror = reject;
+      document.head.append(script);
+    }));
+
+  async function openBoard(source) {
+    board.classList.add("is-open");
+    board.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    board.classList.toggle("is-canvas", source.endsWith(".json"));
+    if (source.endsWith(".json")) {
+      if (viewer) {
+        viewer.destroy();
+        viewer = null;
+      }
+      if (canvasBoard) canvasBoard.destroy();
+      canvasBoard = await window.CanvasBoard(canvasEl, source);
+      return;
+    }
+    if (canvasBoard) {
+      canvasBoard.destroy();
+      canvasBoard = null;
+    }
+    await loadOsd();
+    if (!viewer) {
+      viewer = window.OpenSeadragon({
+        element: canvasEl,
+        showNavigationControl: false,
+        showNavigator: true,
+        navigatorPosition: "BOTTOM_LEFT",
+        navigatorAutoFade: false,
+        animationTime: 0.9,
+        springStiffness: 7,
+        visibilityRatio: 0.4,
+        minZoomImageRatio: 0.8,
+        maxZoomPixelRatio: 1.6,
+        zoomPerScroll: 1.4,
+        gestureSettingsMouse: { clickToZoom: false, dblClickToZoom: true },
+      });
+    }
+    viewer.open(source);
+  }
+  const closeBoard = () => {
+    board.classList.remove("is-open");
+    board.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  };
+  board.querySelector(".board__close").addEventListener("click", closeBoard);
+  board.querySelectorAll("[data-board]").forEach((b) =>
+    b.addEventListener("click", () => {
+      const action = b.dataset.board;
+      if (canvasBoard) {
+        if (action === "home") canvasBoard.home();
+        else canvasBoard.zoomBy(action === "in" ? 1.6 : 1 / 1.6);
+        return;
+      }
+      if (!viewer) return;
+      if (action === "home") viewer.viewport.goHome();
+      else viewer.viewport.zoomBy(action === "in" ? 1.6 : 1 / 1.6);
+      viewer.viewport.applyConstraints();
+    }),
+  );
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && board.classList.contains("is-open")) closeBoard();
+  });
 
   // --- просмотр картинок на весь экран ---
   const box = document.getElementById("lightbox");

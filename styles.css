@@ -717,6 +717,7 @@ body {
 .hero__bubble--web { width: clamp(138px, 9vw, 156px); left: 18%; top: 70%; animation-delay: 0.3s; }
 .hero__bubble--type { width: clamp(140px, 9vw, 160px); left: 90%; top: 66%; animation-delay: 1.6s; }
 .hero__bubble--industrial { width: clamp(144px, 10vw, 175px); left: 10%; top: 66%; animation-delay: 2s; }
+.hero__bubble--research { width: clamp(150px, 10vw, 180px); left: 84%; top: 81%; animation-delay: 1.2s; }
 
 .hero__footer {
   position: absolute;
@@ -1256,20 +1257,21 @@ main {
     z-index: 6;
   }
 
-  .hero__bubble--env { width: 140px; left: auto; right: 30px; top: 92px; }
-  .hero__bubble--ai { width: 129px; left: auto; right: 30px; top: 162px; }
-  .hero__bubble--product { width: 140px; left: auto; right: 30px; top: 232px; }
-  .hero__bubble--web { width: 126px; left: auto; right: 30px; top: 302px; }
-  .hero__bubble--vibe { width: 124px; left: auto; right: 30px; top: 372px; }
-  .hero__bubble--pres { width: 141px; left: auto; right: 30px; top: 442px; }
-  .hero__bubble--brand { width: 111px; left: auto; right: 30px; top: 512px; }
-  .hero__bubble--type { width: 124px; left: auto; right: 30px; top: 652px; }
-  .hero__bubble--industrial { width: 140px; left: auto; right: 30px; top: 722px; }
+  .hero__bubble--env { width: 140px; left: auto; right: 30px; top: 88px; }
+  .hero__bubble--ai { width: 129px; left: auto; right: 30px; top: 150px; }
+  .hero__bubble--product { width: 140px; left: auto; right: 30px; top: 212px; }
+  .hero__bubble--web { width: 126px; left: auto; right: 30px; top: 274px; }
+  .hero__bubble--vibe { width: 124px; left: auto; right: 30px; top: 336px; }
+  .hero__bubble--pres { width: 141px; left: auto; right: 30px; top: 398px; }
+  .hero__bubble--brand { width: 111px; left: auto; right: 30px; top: 460px; }
+  .hero__bubble--type { width: 124px; left: auto; right: 30px; top: 584px; }
+  .hero__bubble--research { width: 140px; left: auto; right: 30px; top: 708px; }
+  .hero__bubble--industrial { width: 140px; left: auto; right: 30px; top: 646px; }
   .hero__bubble--motion {
     width: 208px;
     left: auto;
     right: 30px;
-    top: 582px;
+    top: 522px;
     padding: 12px 18px 18px;
     font-size: 12.5px;
     line-height: 1.05;
@@ -1409,20 +1411,21 @@ main {
     border-radius: 18px;
   }
 
-  .hero__bubble--env { width: 140px; left: auto; right: 30px; top: 92px; }
-  .hero__bubble--ai { width: 129px; left: auto; right: 30px; top: 162px; }
-  .hero__bubble--product { width: 140px; left: auto; right: 30px; top: 232px; }
-  .hero__bubble--web { width: 126px; left: auto; right: 30px; top: 302px; }
-  .hero__bubble--vibe { width: 124px; left: auto; right: 30px; top: 372px; }
-  .hero__bubble--pres { width: 141px; left: auto; right: 30px; top: 442px; }
-  .hero__bubble--brand { width: 111px; left: auto; right: 30px; top: 512px; }
-  .hero__bubble--type { width: 124px; left: auto; right: 30px; top: 652px; }
-  .hero__bubble--industrial { width: 140px; left: auto; right: 30px; top: 722px; }
+  .hero__bubble--env { width: 140px; left: auto; right: 30px; top: 88px; }
+  .hero__bubble--ai { width: 129px; left: auto; right: 30px; top: 150px; }
+  .hero__bubble--product { width: 140px; left: auto; right: 30px; top: 212px; }
+  .hero__bubble--web { width: 126px; left: auto; right: 30px; top: 274px; }
+  .hero__bubble--vibe { width: 124px; left: auto; right: 30px; top: 336px; }
+  .hero__bubble--pres { width: 141px; left: auto; right: 30px; top: 398px; }
+  .hero__bubble--brand { width: 111px; left: auto; right: 30px; top: 460px; }
+  .hero__bubble--type { width: 124px; left: auto; right: 30px; top: 584px; }
+  .hero__bubble--research { width: 140px; left: auto; right: 30px; top: 708px; }
+  .hero__bubble--industrial { width: 140px; left: auto; right: 30px; top: 646px; }
   .hero__bubble--motion {
     width: 208px;
     left: auto;
     right: 30px;
-    top: 582px;
+    top: 522px;
     padding: 12px 18px 18px;
     font-size: 12.5px;
     line-height: 1.05;
@@ -1524,24 +1527,25 @@ main {
     translate: none;
   }
 
-  .hero__bubble--env { width: 140px; left: auto; right: 30px; top: 119px; }
-  .hero__bubble--product { width: 140px; left: auto; right: 30px; top: 247px; }
+  .hero__bubble--env { width: 140px; left: auto; right: 30px; top: 106px; }
+  .hero__bubble--product { width: 140px; left: auto; right: 30px; top: 224px; }
   .hero__bubble--motion {
     width: 208px;
     left: auto;
     right: 30px;
-    top: 567px;
+    top: 519px;
     padding: 12px 18px 18px;
     font-size: 12.5px;
     line-height: 1.05;
   }
-  .hero__bubble--brand { width: 111px; left: auto; right: 30px; top: 503px; }
-  .hero__bubble--type { width: 124px; left: auto; right: 30px; top: 631px; }
-  .hero__bubble--industrial { width: 140px; left: auto; right: 30px; top: 695px; }
-  .hero__bubble--pres { width: 141px; left: auto; right: 30px; top: 439px; }
-  .hero__bubble--ai { width: 129px; left: auto; right: 30px; top: 183px; }
-  .hero__bubble--vibe { width: 124px; left: auto; right: 30px; top: 375px; }
-  .hero__bubble--web { width: 126px; left: auto; right: 30px; top: 311px; }
+  .hero__bubble--brand { width: 111px; left: auto; right: 30px; top: 460px; }
+  .hero__bubble--type { width: 124px; left: auto; right: 30px; top: 578px; }
+  .hero__bubble--research { width: 140px; left: auto; right: 30px; top: 696px; }
+  .hero__bubble--industrial { width: 140px; left: auto; right: 30px; top: 637px; }
+  .hero__bubble--pres { width: 141px; left: auto; right: 30px; top: 401px; }
+  .hero__bubble--ai { width: 129px; left: auto; right: 30px; top: 165px; }
+  .hero__bubble--vibe { width: 124px; left: auto; right: 30px; top: 342px; }
+  .hero__bubble--web { width: 126px; left: auto; right: 30px; top: 283px; }
 
   .hero__bottom-nav {
     gap: 6px;

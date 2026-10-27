@@ -8,8 +8,8 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/icon-32.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/icon-192.png" />
     <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" />
-    <link rel="stylesheet" href="./styles.css?v=fig-67" />
-    <link rel="stylesheet" href="./cases.css?v=fig-67" />
+    <link rel="stylesheet" href="./styles.css?v=fig-80" />
+    <link rel="stylesheet" href="./cases.css?v=fig-80" />
   </head>
   <body class="case-body">
     <header class="case-nav">
@@ -31,7 +31,19 @@
       <button class="lightbox__arrow lightbox__arrow--next" type="button" aria-label="Следующее изображение">→</button>
     </div>
 
-    <script src="./cases.js?v=fig-67"></script>
-    <script src="./case-page.js?v=fig-67"></script>
+    <div class="board" id="board" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Доска проекта">
+      <div class="board__canvas" id="board-canvas"></div>
+      <p class="board__hint">тяните, чтобы двигаться · колесо или щипок — масштаб</p>
+      <div class="board__controls">
+        <button class="board__button" type="button" data-board="in" aria-label="Приблизить">+</button>
+        <button class="board__button" type="button" data-board="out" aria-label="Отдалить">−</button>
+        <button class="board__button board__button--wide" type="button" data-board="home">вся доска</button>
+      </div>
+      <button class="showcase__close board__close" type="button" aria-label="Закрыть доску"><span aria-hidden="true">x</span></button>
+    </div>
+
+    <script src="./cases.js?v=fig-80"></script>
+    <script src="./canvas-board.js?v=fig-80"></script>
+    <script src="./case-page.js?v=fig-80"></script>
   </body>
 </html>
