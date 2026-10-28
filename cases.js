@@ -1614,43 +1614,10 @@ window.CASES = [
   {
     id: "type-posters",
     title: "Типографические плакаты",
-    subtitle: "Эксперименты с текстом как с изображением: строки накладываются, рассыпаются, сгущаются в пятна и складываются в ритм.",
     tags: ["fun"],
     discipline: "типографика",
     stage: "эксперимент",
     cover: "poster-8.jpg",
-    intro: [
-      "Серия плакатов, где буквы работают как графика: повтор, плотность, наложение и разрежение строк.",
-    ],
-    sections: [
-      {
-        title: "сказка",
-        items: [
-          {
-            text: "Один и тот же фрагмент сказки разными способами: колонки наползают друг на друга, строки дробятся по буквам и собираются в серое пятно.",
-          },
-        ],
-        images: ["poster-1.jpg", "poster-2.jpg", "poster-3.jpg", "poster-4.jpg", "poster-5.jpg", "poster-6.jpg"],
-      },
-      {
-        title: "стихи",
-        items: [
-          {
-            text: "Слова повторяются, сдвигаются и наслаиваются, пока стихотворение не начинает звучать как ритм на листе.",
-          },
-        ],
-        images: ["poster-7.jpg", "poster-8.jpg"],
-      },
-      {
-        title: "фразы",
-        items: [
-          {
-            text: "Короткие бытовые фразы, разогнанные до узора: «Ваня спал ещё?», «это вчера это смотрела», «яндекс живи».",
-          },
-        ],
-        images: ["poster-9.jpg", "poster-10.jpg", "poster-11.jpg", "poster-12.jpg"],
-      },
-    ],
     gallery: [
       { src: "poster-1.jpg" },
       { src: "poster-2.jpg" },
@@ -1669,19 +1636,10 @@ window.CASES = [
   {
     id: "wallpapers",
     title: "Обои для телефона",
-    subtitle: "Серия обоев на экран телефона: фотография, свет и одна короткая фраза-напоминание.",
     tags: ["fun"],
     discipline: "графика",
     stage: "для себя",
     cover: "wall-4.jpg",
-    intro: ["Обои, которые я делала для себя: каждая — фраза, которую хочется видеть каждый раз, когда берёшь телефон."],
-    sections: [
-      {
-        title: "серия",
-        items: [{ text: "Фотографии неба, дороги, света и машин, градиенты и мягкие пятна цвета — и короткий текст, который не мешает иконкам на экране." }],
-        images: ["wall-1.jpg", "wall-2.jpg", "wall-3.jpg", "wall-4.jpg", "wall-5.jpg", "wall-6.jpg", "wall-7.jpg", "wall-8.jpg", "wall-9.jpg", "wall-10.jpg", "wall-11.jpg", "wall-12.jpg", "wall-13.jpg"],
-      },
-    ],
     gallery: [
       { src: "wall-1.jpg" },
       { src: "wall-2.jpg" },
@@ -1701,26 +1659,15 @@ window.CASES = [
   {
     id: "chrome-party",
     title: "Хромированная вечеринка",
-    subtitle: "Приглашение, меню, винная карта и расписание для дня рождения: disco, блёстки и хром.",
     tags: ["fun"],
     discipline: "полиграфия",
     stage: "для себя",
     cover: "invite.jpg",
-    intro: ["Полный комплект полиграфии к собственному двадцатилетию — от приглашения с детской фотографией до барной карты с авторскими коктейлями."],
-    sections: [
-      {
-        title: "комплект",
-        items: [
-          { heading: "приглашение", text: "«Это конечно не концерт The Weekend, но тоже ничего…» — дресс-код disco & diamonds и список того, что взять с собой.", images: ["invite.jpg"] },
-          { heading: "меню, бар и расписание", text: "Мерцающий фон, мягкие серо-розовые заголовки и коктейли с названиями вроде «drama queen» и «idiots are everywhere».", images: ["menu.jpg", "wine.jpg", "schedule.jpg"] },
-        ],
-      },
-    ],
     gallery: [
-      { src: "invite.jpg", caption: "приглашение" },
-      { src: "menu.jpg", caption: "меню и бар" },
-      { src: "wine.jpg", caption: "винная карта" },
-      { src: "schedule.jpg", caption: "расписание праздника" },
+      { src: "invite.jpg" },
+      { src: "menu.jpg" },
+      { src: "wine.jpg" },
+      { src: "schedule.jpg" },
     ],
   },
 ];

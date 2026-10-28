@@ -231,9 +231,9 @@
       if (section.images) block.append(shots(section.images, "case__gallery case-section__wide"));
       body.push(block);
     }
-  } else {
+  } else if (item.intro && item.intro.length) {
     const intro = el("div", "case__intro");
-    for (const p of item.intro || []) intro.append(el("p", null, p));
+    for (const p of item.intro) intro.append(el("p", null, p));
     body.push(intro);
   }
 
