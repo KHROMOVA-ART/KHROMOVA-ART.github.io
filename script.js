@@ -447,17 +447,25 @@ if (topbar && topbarMenuButton) {
       const row = Math.floor(i / 2);
       // лёгкий разброс, чтобы колонки не выглядели таблицей
       const jitter = ((i * 37) % 17) - 8;
-      b.style.setProperty("--ox", `${ox}px`);
-      b.style.setProperty("--oy", `${oy}px`);
-      b.style.setProperty("--tx", `${ox + (col ? half : -half) + jitter}px`);
-      b.style.setProperty("--ty", `${top + 70 + row * step + (col ? step / 2 : 0)}px`);
+      const tx = ox + (col ? half : -half) + jitter;
+      const ty = top + 70 + row * step + (col ? step / 2 : 0);
+      b.style.setProperty("--tx", `${tx}px`);
+      b.style.setProperty("--ty", `${ty}px`);
+      // сдвиг до кнопки: из этой точки пузырь вылетает и туда же прячется
+      b.style.setProperty("--dx", `${ox - tx}px`);
+      b.style.setProperty("--dy", `${oy - ty}px`);
       b.style.setProperty("--in", `${i * 45}ms`);
       b.style.setProperty("--out", `${(bubbles.length - 1 - i) * 25}ms`);
     });
   };
 
+  let movingTimer = 0;
   const setOpen = (open) => {
     if (open) layout();
+    // пока пузыри летят — без тяжёлой стеклянной линзы
+    canvas.classList.add("is-moving");
+    clearTimeout(movingTimer);
+    movingTimer = setTimeout(() => canvas.classList.remove("is-moving"), open ? 820 + bubbles.length * 45 + 60 : 800);
     canvas.classList.toggle("is-sections", open);
     toggle.setAttribute("aria-expanded", open ? "true" : "false");
   };

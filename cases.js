@@ -1129,8 +1129,12 @@ window.CASES = [
     sections: [
       {
         title: "структура",
-        items: [{ text: "Начало, развитие, гений, опыт, вдохновение и источники — каждая глава отмечена рубрикой в верхнем колонтитуле. В конце — викторина для аудитории." }],
-        images: ["slide-1.jpg", "slide-2.jpg", "slide-3.jpg", "slide-4.jpg", "slide-5.jpg", "slide-6.jpg", "slide-7.jpg", "slide-8.jpg", "slide-9.jpg", "slide-10.jpg", "slide-11.jpg", "slide-12.jpg", "slide-13.jpg", "slide-14.jpg", "slide-15.jpg", "slide-16.jpg", "slide-17.jpg", "slide-18.jpg", "slide-19.jpg", "slide-20.jpg", "slide-21.jpg", "slide-22.jpg", "slide-23.jpg"],
+        items: [
+          {
+            text: "Начало, развитие, гений, опыт, вдохновение и источники — каждая глава отмечена рубрикой в верхнем колонтитуле. В конце — викторина для аудитории.",
+            slides: ["slide-1.jpg", "slide-2.jpg", "slide-3.jpg", "slide-4.jpg", "slide-5.jpg", "slide-6.jpg", "slide-7.jpg", "slide-8.jpg", "slide-9.jpg", "slide-10.jpg", "slide-11.jpg", "slide-12.jpg", "slide-13.jpg", "slide-14.jpg", "slide-15.jpg", "slide-16.jpg", "slide-17.jpg", "slide-18.jpg", "slide-19.jpg", "slide-20.jpg", "slide-21.jpg", "slide-22.jpg", "slide-23.jpg"],
+          },
+        ],
       },
     ],
     gallery: [

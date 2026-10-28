@@ -2215,53 +2215,59 @@ main {
     scale: 1.04;
   }
 
+  /* мутный фон: размытие постоянное, плавно меняется только прозрачность слоя —
+     анимировать сам blur на телефоне дорого, от этого и были рывки */
   .hero__sections-veil {
     position: fixed;
     inset: 0;
     z-index: 5;
     display: block;
-    background: rgba(49, 39, 35, 0);
-    -webkit-backdrop-filter: blur(0);
-    backdrop-filter: blur(0);
-    pointer-events: none;
-    transition: background-color 700ms ease, backdrop-filter 700ms ease, -webkit-backdrop-filter 700ms ease;
-  }
-
-  .hero__canvas.is-sections .hero__sections-veil {
     background: rgba(49, 39, 35, 0.16);
     -webkit-backdrop-filter: blur(6px);
     backdrop-filter: blur(6px);
-    pointer-events: auto;
-    transition-duration: 1100ms;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 600ms ease;
   }
 
-  /* пузыри разделов: спрятаны в кнопке, по нажатию разлетаются на свои места */
+  .hero__canvas.is-sections .hero__sections-veil {
+    opacity: 1;
+    pointer-events: auto;
+    transition-duration: 900ms;
+  }
+
+  /* пузыри разделов стоят на своих местах (left/top не анимируются — это пересчёт вёрстки на каждом кадре),
+     а вылетают из кнопки сдвигом translate и масштабом — их видеокарта двигает без пересчёта */
   .hero__canvas .hero__bubble {
-    left: var(--ox, 50%) !important;
-    top: var(--oy, 152px) !important;
+    left: var(--tx, 50%) !important;
+    top: var(--ty, 152px) !important;
     right: auto !important;
-    translate: -50% -50% !important;
+    translate: calc(-50% + var(--dx, 0px)) calc(-50% + var(--dy, 0px)) !important;
     opacity: 0;
     scale: 0.2;
     pointer-events: none;
+    will-change: translate, scale, opacity;
     transition:
-      left 520ms cubic-bezier(0.5, 0, 0.75, 0) var(--out, 0ms),
-      top 520ms cubic-bezier(0.5, 0, 0.75, 0) var(--out, 0ms),
-      scale 420ms ease var(--out, 0ms),
-      opacity 320ms ease calc(var(--out, 0ms) + 160ms);
+      translate 480ms cubic-bezier(0.5, 0, 0.75, 0) var(--out, 0ms),
+      scale 440ms ease var(--out, 0ms),
+      opacity 280ms ease calc(var(--out, 0ms) + 180ms);
   }
 
   .hero__canvas.is-sections .hero__bubble {
-    left: var(--tx) !important;
-    top: var(--ty) !important;
+    translate: -50% -50% !important;
     opacity: 1;
     scale: 1;
     pointer-events: auto;
     transition:
-      left 900ms cubic-bezier(0.16, 1, 0.3, 1) var(--in, 0ms),
-      top 900ms cubic-bezier(0.16, 1, 0.3, 1) var(--in, 0ms),
-      scale 900ms cubic-bezier(0.34, 1.5, 0.5, 1) var(--in, 0ms),
-      opacity 300ms ease var(--in, 0ms);
+      translate 820ms cubic-bezier(0.22, 1, 0.36, 1) var(--in, 0ms),
+      scale 820ms cubic-bezier(0.22, 1.25, 0.4, 1) var(--in, 0ms),
+      opacity 260ms ease var(--in, 0ms);
+  }
+
+  /* стеклянная линза (SVG-фильтр) на каждом пузыре очень тяжёлая — пока они летят, её нет */
+  .hero__canvas.is-moving .hero__bubble {
+    -webkit-backdrop-filter: blur(3px) saturate(1.6) !important;
+    backdrop-filter: blur(3px) saturate(1.6) !important;
   }
 }
 
