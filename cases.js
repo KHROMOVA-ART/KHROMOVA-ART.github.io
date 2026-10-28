@@ -1296,6 +1296,57 @@ window.CASES = [
       { src: "toy-fox.jpg", caption: "игрушка «лиса»" },
     ],
   },
+  {
+    id: "huggito",
+    title: "Мультфильмы для арт-игрушки HUGGITO",
+    subtitle: "Короткие зимние мультфильмы для инстаграма HUGGITO — лимитированной арт-игрушки из ОАЭ со слоганом «everyone needs a home».",
+    tags: ["motion", "ai"],
+    discipline: "раскадровка и ии-креатив",
+    stage: "декабрь 2025 — январь 2026",
+    cover: "cover.jpg",
+    intro: [
+      "Мультфильмы, в которых хаски HUGGITO оживает и проживает маленькие истории о доме и уюте.",
+    ],
+    link: { href: "https://www.instagram.com/huggitotoy/", label: "huggito в instagram" },
+    sections: [
+      {
+        title: "основное",
+        items: [
+          { heading: "роль", text: "Раскадровщик и ИИ-креатор: раскадровка сцен и генерация мультфильмов с помощью нейросетей." },
+          { heading: "бренд", text: "HUGGITO — лимитированная арт-игрушка: серый хаски по имени HUGGITO с золотым сердцем на груди. Главная мысль бренда — каждому нужен дом." },
+          { heading: "задача", text: "Оживить игрушку в коротких вертикальных мультфильмах для инстаграма бренда к зимнему сезону — так, чтобы герой оставался узнаваемым и в каждой истории звучала тема дома." },
+          { heading: "стиль", text: "Рисованная мультипликация в духе классических американских мультфильмов: мягкий контур, зимняя палитра, тёплый свет в окнах и золотые акценты, как на самой игрушке." },
+        ],
+      },
+      {
+        title: "деревня",
+        items: [
+          {
+            text: "Шумный ночной город, бессонница и давка в метро — HUGGITO садится в поезд и уезжает в заснеженную деревню, где наконец чувствует себя дома.",
+            video: { src: "village.mp4", poster: "village-poster.jpg" },
+          },
+        ],
+        images: ["village-bed.jpg", "village-metro.jpg", "village-train.jpg"],
+      },
+      {
+        title: "шарф",
+        items: [
+          {
+            text: "Рождественский городок, метель срывает с героя жёлтый шарф, и он бежит за ним по заснеженным улицам.",
+            video: { src: "scarf.mp4", poster: "scarf-poster.jpg" },
+          },
+        ],
+        images: ["scarf-run.jpg", "scarf-found.jpg"],
+      },
+    ],
+    gallery: [
+      { src: "village-bed.jpg", caption: "бессонница в большом городе" },
+      { src: "village-metro.jpg", caption: "давка в метро" },
+      { src: "village-train.jpg", caption: "поезд в деревню" },
+      { src: "scarf-run.jpg", caption: "погоня за шарфом" },
+      { src: "scarf-found.jpg", caption: "финал" },
+    ],
+  },
 ];
 
 window.caseImage = (item, file) => `./assets/cases/${item.id}/${file}`;
