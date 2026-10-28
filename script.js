@@ -441,6 +441,16 @@ if (topbar && topbarMenuButton) {
     item.addEventListener("click", closeTopbarMenu);
   });
 
+  // тап в любое место вне панели «кто я» закрывает её — и больше ничего не нажимает
+  document.addEventListener("click", (event) => {
+    if (!topbar.classList.contains("is-open")) return;
+    const mobilePanel = document.getElementById("topbar-mobile-panel");
+    if (mobilePanel?.contains(event.target) || topbarMenuButton.contains(event.target)) return;
+    event.preventDefault();
+    event.stopPropagation();
+    closeTopbarMenu();
+  }, true);
+
   syncTopbarCompactState();
 
   window.addEventListener("resize", () => {
