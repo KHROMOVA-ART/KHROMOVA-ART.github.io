@@ -2283,3 +2283,10 @@ main {
 
 /* бабл «дурачество»: эксперименты */
 .hero__bubble--fun { width: clamp(140px, 9vw, 168px); left: 50%; top: 86%; animation-delay: 0.8s; }
+
+/* на десктопе баблы двигает физика (bubbles.js): покачивание выключено, чтобы края касались точно */
+@media (min-width: 1121px) {
+  .hero__bubble {
+    animation: none;
+  }
+}

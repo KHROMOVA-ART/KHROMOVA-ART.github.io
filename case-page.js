@@ -128,7 +128,9 @@
   };
 
   const cover = el("div", "case__cover");
-  const coverShot = shot(item.cover, true);
+  // обложка-слайд листалки не дублируется отдельной картинкой
+  const inDeck = (item.sections || []).some((sec) => (sec.items || []).some((p) => (p.slides || []).includes(item.cover)));
+  const coverShot = inDeck ? null : shot(item.cover, true);
   if (coverShot) cover.append(coverShot);
 
   const body = [];
@@ -156,6 +158,52 @@
           video.preload = "none";
           if (part.video.wide) video.classList.add("case__video--wide");
           unit.append(video);
+        }
+        if (part.slides) {
+          // презентация листалкой: по одному слайду, стрелки, свайп и счётчик
+          const deck = el("div", "case__deck");
+          const track = el("div", "case__deck-track");
+          track.tabIndex = 0;
+          track.setAttribute("aria-label", "слайды презентации");
+          for (const src of part.slides) {
+            const i = item.gallery.findIndex((g) => g.src === src);
+            shownImages.add(src);
+            const button = el("button", "case__deck-slide");
+            button.type = "button";
+            const image = el("img");
+            image.src = img(item, src);
+            image.alt = "";
+            image.loading = "lazy";
+            button.append(image);
+            button.addEventListener("click", () => openLightbox(i));
+            track.append(button);
+          }
+          const prev = el("button", "case__deck-nav case__deck-nav--prev", "←");
+          const next = el("button", "case__deck-nav case__deck-nav--next", "→");
+          prev.type = next.type = "button";
+          prev.setAttribute("aria-label", "предыдущий слайд");
+          next.setAttribute("aria-label", "следующий слайд");
+          const counter = el("span", "case__deck-count");
+          const current = () => (track.clientWidth ? Math.round(track.scrollLeft / track.clientWidth) : 0);
+          const go = (k) => track.scrollTo({ left: Math.max(0, Math.min(part.slides.length - 1, k)) * track.clientWidth, behavior: "smooth" });
+          const sync = () => {
+            const k = current();
+            counter.textContent = `${k + 1} / ${part.slides.length}`;
+            prev.disabled = k === 0;
+            next.disabled = k === part.slides.length - 1;
+          };
+          prev.addEventListener("click", () => go(current() - 1));
+          next.addEventListener("click", () => go(current() + 1));
+          track.addEventListener("scroll", sync, { passive: true });
+          track.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowRight") { e.preventDefault(); go(current() + 1); }
+            if (e.key === "ArrowLeft") { e.preventDefault(); go(current() - 1); }
+          });
+          const bar = el("div", "case__deck-bar");
+          bar.append(prev, counter, next);
+          deck.append(track, bar);
+          unit.append(deck);
+          sync();
         }
         if (part.screens) {
           // сайт целиком в окне браузера и в рамке телефона — прокручивается внутри, как живой
