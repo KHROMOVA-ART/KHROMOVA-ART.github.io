@@ -934,3 +934,15 @@
 .board.is-canvas .board__canvas {
   cursor: grab;
 }
+
+/* вертикальный ролик внутри раздела кейса */
+.case__video {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  margin-top: 18px;
+  aspect-ratio: 9 / 16;
+  border-radius: 16px;
+  background: #1d1916;
+  object-fit: cover;
+}

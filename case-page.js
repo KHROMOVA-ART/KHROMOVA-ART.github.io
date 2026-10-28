@@ -146,6 +146,16 @@
           for (const li of part.list) ul.append(el("li", null, li));
           unit.append(ul);
         }
+        if (part.video) {
+          // ролик из папки кейса: грузится только по нажатию на «play»
+          const video = el("video", "case__video");
+          video.src = img(item, part.video.src);
+          if (part.video.poster) video.poster = img(item, part.video.poster);
+          video.controls = true;
+          video.playsInline = true;
+          video.preload = "none";
+          unit.append(video);
+        }
         content.append(unit);
         if (part.images) content.append(shots(part.images));
       }
