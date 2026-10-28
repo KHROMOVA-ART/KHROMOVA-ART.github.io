@@ -2280,3 +2280,6 @@ main {
     display: none;
   }
 }
+
+/* бабл «дурачество»: эксперименты */
+.hero__bubble--fun { width: clamp(140px, 9vw, 168px); left: 50%; top: 86%; animation-delay: 0.8s; }
