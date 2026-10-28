@@ -3,9 +3,6 @@ const loaderPercent = document.getElementById("loader-percent");
 const heroVideo = document.getElementById("hero-video");
 const topbar = document.querySelector(".topbar");
 const topbarMenuButton = document.getElementById("topbar-menu-button");
-const heroFooter = document.querySelector(".hero__footer");
-const heroFooterMenuButton = document.getElementById("hero-footer-menu-button");
-const heroFooterMobilePanel = document.getElementById("hero-footer-mobile-panel");
 const journeyTrigger = document.getElementById("journey-trigger");
 const journeyTriggerMobile = document.getElementById("journey-trigger-mobile");
 const journeyModal = document.getElementById("journey-modal");
@@ -403,6 +400,11 @@ if (topbar && topbarMenuButton) {
     }
   });
 
+  // пункты навигации в панели «кто я» закрывают её
+  document.querySelectorAll("#topbar-mobile-panel .topbar__mobile-nav a, #topbar-mobile-panel .topbar__mobile-nav button").forEach((item) => {
+    item.addEventListener("click", closeTopbarMenu);
+  });
+
   syncTopbarCompactState();
 
   window.addEventListener("resize", () => {
@@ -422,34 +424,52 @@ if (topbar && topbarMenuButton) {
   window.addEventListener("load", syncTopbarCompactState, { once: true });
 }
 
-if (heroFooter && heroFooterMenuButton && heroFooterMobilePanel) {
-  const closeHeroFooterMenu = () => {
-    heroFooter.classList.remove("is-open");
-    heroFooterMenuButton.setAttribute("aria-expanded", "false");
-    heroFooterMobilePanel.setAttribute("aria-hidden", "true");
+
+// мобильная главная: разделы спрятаны в кнопку «проекты» — по нажатию фон плавно мутнеет,
+// пузыри разделов вылетают из кнопки двумя колонками «ёлочкой»; тап по фону прячет их обратно
+(() => {
+  const canvas = document.querySelector(".hero__canvas");
+  const toggle = document.getElementById("hero-projects");
+  const veil = document.getElementById("hero-sections-veil");
+  if (!canvas || !toggle || !veil) return;
+  const mobile = window.matchMedia("(max-width: 1120px)");
+  const bubbles = [...canvas.querySelectorAll(".hero__bubble")];
+
+  const layout = () => {
+    const w = canvas.clientWidth;
+    const top = toggle.offsetTop + toggle.offsetHeight;
+    const ox = w / 2;
+    const oy = toggle.offsetTop + toggle.offsetHeight / 2;
+    const step = Math.min(78, Math.max(64, (window.innerHeight - top - 120) / 6));
+    const half = Math.min(84, w / 4 - 6);
+    bubbles.forEach((b, i) => {
+      const col = i % 2;
+      const row = Math.floor(i / 2);
+      // лёгкий разброс, чтобы колонки не выглядели таблицей
+      const jitter = ((i * 37) % 17) - 8;
+      b.style.setProperty("--ox", `${ox}px`);
+      b.style.setProperty("--oy", `${oy}px`);
+      b.style.setProperty("--tx", `${ox + (col ? half : -half) + jitter}px`);
+      b.style.setProperty("--ty", `${top + 70 + row * step + (col ? step / 2 : 0)}px`);
+      b.style.setProperty("--in", `${i * 45}ms`);
+      b.style.setProperty("--out", `${(bubbles.length - 1 - i) * 25}ms`);
+    });
   };
 
-  heroFooterMenuButton.addEventListener("click", () => {
-    const isOpen = heroFooter.classList.toggle("is-open");
-    heroFooterMenuButton.setAttribute("aria-expanded", isOpen ? "true" : "false");
-    heroFooterMobilePanel.setAttribute("aria-hidden", isOpen ? "false" : "true");
-  });
+  const setOpen = (open) => {
+    if (open) layout();
+    canvas.classList.toggle("is-sections", open);
+    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+  };
 
-  heroFooterMobilePanel.querySelectorAll("a, button").forEach((item) => {
-    item.addEventListener("click", () => {
-      closeHeroFooterMenu();
-    });
+  toggle.addEventListener("click", () => setOpen(!canvas.classList.contains("is-sections")));
+  veil.addEventListener("click", () => setOpen(false));
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !document.querySelector(".journey-modal.is-open")) setOpen(false);
   });
-
   window.addEventListener("resize", () => {
-    if (window.innerWidth > 1120) {
-      closeHeroFooterMenu();
-    }
+    if (!mobile.matches) setOpen(false);
+    else layout();
   });
-
-  window.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && heroFooter.classList.contains("is-open")) {
-      closeHeroFooterMenu();
-    }
-  });
-}
+  layout();
+})();

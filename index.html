@@ -15,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./styles.css?v=fig-86" />
+    <link rel="stylesheet" href="./styles.css?v=fig-88" />
   </head>
   <body>
     <div class="loader" id="loader" aria-live="polite">
@@ -32,7 +32,7 @@
           кто я
         </button>
         <div class="topbar__group topbar__group--intro">
-          <div class="topbar__meta">ЕКАТЕРИНА ХРОМОВА • ПОРТФОЛИО • 2026 • МОСКВА</div>
+          <div class="topbar__meta">ЕКАТЕРИНА ХРОМОВА<span class="topbar__meta-sep"> • </span><br class="topbar__meta-br" />ПОРТФОЛИО • 2026<span class="topbar__meta-city"> • МОСКВА</span></div>
           <div class="topbar__left-copy">
             От&nbsp;анализа и&nbsp;концепции до&nbsp;команды, сайта, презентации и&nbsp;визуального мира проекта.
           </div>
@@ -60,6 +60,11 @@
           </div>
         </div>
         <div class="topbar__mobile-panel" id="topbar-mobile-panel" aria-hidden="true">
+          <nav class="topbar__mobile-nav" aria-label="Мобильная навигация по разделам">
+            <a href="./projects.html">все проекты</a>
+            <a href="./tools.html">архив</a>
+            <button class="topbar__mobile-journey" id="journey-trigger-mobile" type="button" aria-haspopup="dialog" aria-controls="journey-modal">путь героя</button>
+          </nav>
           <div class="topbar__mobile-section">
             <div class="topbar__meta">ЕКАТЕРИНА ХРОМОВА • ПОРТФОЛИО • 2026 • МОСКВА</div>
           </div>
@@ -101,6 +106,9 @@
             </div>
           </div>
           <div class="hero__veil" aria-hidden="true"></div>
+          <!-- мобильная версия: разделы спрятаны в кнопку «проекты» -->
+          <div class="hero__sections-veil" id="hero-sections-veil" aria-hidden="true"></div>
+          <button class="hero__projects" id="hero-projects" type="button" aria-expanded="false">проекты</button>
           <a class="hero__bubble hero__bubble--env" href="./projects.html?tag=env" data-section="env" aria-haspopup="dialog" aria-controls="section-modal" data-section-text="Пространства, выставки, навигация и инсталляции: как визуальная система живёт в реальном мире.">средовой<br />дизайн</a>
           <a class="hero__bubble hero__bubble--product" href="./projects.html?tag=product" data-section="product" aria-haspopup="dialog" aria-controls="section-modal" data-section-text="Цифровые продукты и сервисы: исследования, пользовательские сценарии, интерфейсы и дизайн-системы.">продуктовый<br />дизайн</a>
           <a class="hero__bubble hero__bubble--motion" href="./projects.html?tag=motion" data-section="motion" aria-haspopup="dialog" aria-controls="section-modal" data-section-text="Анимация, моушн-дизайн и видео: от раскадровки и стиля до руководства командой продакшена.">арт-дирекшн<br />анимации</a>
@@ -113,11 +121,6 @@
           <a class="hero__bubble hero__bubble--industrial" href="./projects.html?tag=industrial" data-section="industrial" aria-haspopup="dialog" aria-controls="section-modal" data-section-text="Предметы и мебель: от образа и механизмов трансформации до эскизов и визуализаций.">промышленный<br />дизайн</a>
           <a class="hero__bubble hero__bubble--research" href="./projects.html?tag=research" data-section="research" aria-haspopup="dialog" aria-controls="section-modal" data-section-text="Исследования, с которых начинаются проекты: культурные коды, аналоги, экспертиза и карты смыслов.">исследования</a>
           <div class="hero__footer">
-            <button class="hero__footer-menu" id="hero-footer-menu-button" type="button" aria-expanded="false" aria-controls="hero-footer-mobile-panel" aria-label="Открыть нижнее меню">
-              <span></span>
-              <span></span>
-              <span></span>
-            </button>
             <nav class="hero__bottom-nav" aria-label="Навигация по разделам">
               <a href="./projects.html">проекты</a>
               <span>•</span>
@@ -126,15 +129,6 @@
             <button class="hero__bottom-note" id="journey-trigger" type="button" aria-haspopup="dialog" aria-controls="journey-modal">
               путь героя
             </button>
-            <div class="hero__footer-mobile-panel" id="hero-footer-mobile-panel" aria-hidden="true">
-              <nav class="hero__footer-mobile-nav" aria-label="Мобильная навигация по разделам">
-                <a href="./projects.html">проекты</a>
-                <a href="./tools.html">архив</a>
-                <button class="hero__footer-mobile-journey" id="journey-trigger-mobile" type="button" aria-haspopup="dialog" aria-controls="journey-modal">
-                  путь героя
-                </button>
-              </nav>
-            </div>
           </div>
         </div>
       </header>
@@ -343,10 +337,10 @@
         }
       }
     </script>
-    <script src="./cases.js?v=fig-86"></script>
-    <script src="./script.js?v=fig-86"></script>
-    <script src="./glass.js?v=fig-86"></script>
-    <script src="./bubbles.js?v=fig-86"></script>
-    <script type="module" src="./character.js?v=fig-86"></script>
+    <script src="./cases.js?v=fig-88"></script>
+    <script src="./script.js?v=fig-88"></script>
+    <script src="./glass.js?v=fig-88"></script>
+    <script src="./bubbles.js?v=fig-88"></script>
+    <script type="module" src="./character.js?v=fig-88"></script>
   </body>
 </html>

@@ -731,8 +731,7 @@ body {
   gap: 24px;
 }
 
-.hero__footer-menu,
-.hero__footer-mobile-panel {
+.topbar__mobile-nav {
   display: none;
 }
 
@@ -1260,87 +1259,6 @@ main {
     display: none;
   }
 
-  .hero__footer-menu {
-    display: inline-flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 4px;
-    width: 64px;
-    height: 63px;
-    margin-left: auto;
-    padding: 0;
-    border: 0;
-    border-radius: 21px;
-    background: rgba(255, 255, 255, 0.78);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 12px 26px rgba(49, 39, 35, 0.08);
-    cursor: pointer;
-    transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
-  }
-
-  .hero__footer-menu:hover {
-    transform: scale(1.045);
-    box-shadow: 0 16px 28px rgba(90, 80, 76, 0.18);
-  }
-
-  .hero__footer-menu span {
-    display: block;
-    width: 24px;
-    height: 2px;
-    border-radius: 999px;
-    background: #312723;
-  }
-
-  .hero__footer-mobile-panel {
-    position: absolute;
-    right: 0;
-    bottom: 78px;
-    z-index: 22;
-    width: min(260px, calc(100vw - 36px));
-    padding: 18px;
-    border-radius: 24px;
-    background: rgba(253, 253, 253, 0.92);
-    backdrop-filter: blur(18px);
-    box-shadow: 0 24px 48px rgba(49, 39, 35, 0.14);
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transform: translateY(8px) scale(0.96);
-    transform-origin: bottom right;
-    transition: opacity 220ms ease, transform 220ms ease, visibility 220ms ease;
-  }
-
-  .hero__footer.is-open .hero__footer-mobile-panel {
-    display: block;
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-    transform: translateY(0) scale(1);
-  }
-
-  .hero__footer-mobile-nav {
-    display: grid;
-    gap: 10px;
-  }
-
-  .hero__footer-mobile-nav a,
-  .hero__footer-mobile-journey {
-    color: #312723;
-    text-decoration: none;
-    font-family: "Bimbo", "Cygre Book", "Helvetica Neue", Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.2;
-    text-transform: lowercase;
-  }
-
-  .hero__footer-mobile-journey {
-    padding: 0;
-    border: 0;
-    background: transparent;
-    text-align: left;
-    cursor: pointer;
-  }
 }
 
 @media (max-width: 760px) {
@@ -1519,10 +1437,6 @@ main {
 
   .hero__bottom-nav {
     gap: 6px;
-  }
-
-  .hero__footer-mobile-panel {
-    width: calc(100vw - 20px);
   }
 
   .journey-modal {
@@ -2210,5 +2124,159 @@ main {
 
   .cv__grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* мобильная панель «кто я»: сверху навигация (проекты, архив, путь героя) */
+.topbar.topbar--compact .topbar__mobile-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(49, 39, 35, 0.18);
+}
+
+.topbar__mobile-nav a,
+.topbar__mobile-journey {
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.6);
+  color: #312723;
+  font-family: "Bimbo", "Cygre Book", "Helvetica Neue", Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: lowercase;
+  cursor: pointer;
+  transition: background-color 180ms ease;
+}
+
+.topbar__mobile-nav a:hover,
+.topbar__mobile-journey:hover {
+  background: #fff;
+}
+
+/* мобильная главная (Figma 33:2): одна кнопка «проекты» под именем, разделы выплывают из неё пузырями,
+   фон плавно мутнеет; координаты пузырей считает script.js */
+.hero__projects,
+.hero__sections-veil {
+  display: none;
+}
+
+@media (max-width: 1120px) {
+  .hero__name {
+    display: none;
+  }
+
+  .hero__figure,
+  .hero__mobile-scene .hero__figure {
+    left: calc(50% - 230px);
+    top: 150px;
+  }
+
+  .hero__projects {
+    position: absolute;
+    z-index: 7;
+    top: 114px;
+    left: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 206px;
+    height: 76px;
+    padding: 14px 34px;
+    border: 0;
+    border-radius: 29.677px;
+    translate: -50% 0;
+    background: linear-gradient(155.18deg, rgba(255, 255, 255, 0.48) 5.61%, rgba(255, 255, 255, 0.48) 15.53%, rgba(227, 157, 231, 0.24) 46.1%, rgba(255, 255, 255, 0.24) 105.36%);
+    -webkit-backdrop-filter: blur(6px) saturate(1.4);
+    backdrop-filter: blur(6px) saturate(1.4);
+    box-shadow:
+      inset 1.5px 1.5px 0 rgba(255, 255, 255, 0.9),
+      0 1.141px 1.141px rgba(253, 219, 146, 0.25),
+      0 -2.281px 8.903px rgba(167, 178, 235, 0.38),
+      0 1.187px 8.903px rgba(255, 255, 255, 0.38);
+    color: #6e6765;
+    font-family: "Cygre Medium", "Helvetica Neue", Arial, sans-serif;
+    font-size: 20px;
+    line-height: 1.05;
+    text-transform: lowercase;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: scale 520ms cubic-bezier(0.34, 1.7, 0.5, 1);
+  }
+
+  .hero__projects:active {
+    scale: 0.96;
+  }
+
+  .hero__canvas.is-sections .hero__projects {
+    scale: 1.04;
+  }
+
+  .hero__sections-veil {
+    position: fixed;
+    inset: 0;
+    z-index: 5;
+    display: block;
+    background: rgba(49, 39, 35, 0);
+    -webkit-backdrop-filter: blur(0);
+    backdrop-filter: blur(0);
+    pointer-events: none;
+    transition: background-color 700ms ease, backdrop-filter 700ms ease, -webkit-backdrop-filter 700ms ease;
+  }
+
+  .hero__canvas.is-sections .hero__sections-veil {
+    background: rgba(49, 39, 35, 0.16);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    pointer-events: auto;
+    transition-duration: 1100ms;
+  }
+
+  /* пузыри разделов: спрятаны в кнопке, по нажатию разлетаются на свои места */
+  .hero__canvas .hero__bubble {
+    left: var(--ox, 50%) !important;
+    top: var(--oy, 152px) !important;
+    right: auto !important;
+    translate: -50% -50% !important;
+    opacity: 0;
+    scale: 0.2;
+    pointer-events: none;
+    transition:
+      left 520ms cubic-bezier(0.5, 0, 0.75, 0) var(--out, 0ms),
+      top 520ms cubic-bezier(0.5, 0, 0.75, 0) var(--out, 0ms),
+      scale 420ms ease var(--out, 0ms),
+      opacity 320ms ease calc(var(--out, 0ms) + 160ms);
+  }
+
+  .hero__canvas.is-sections .hero__bubble {
+    left: var(--tx) !important;
+    top: var(--ty) !important;
+    opacity: 1;
+    scale: 1;
+    pointer-events: auto;
+    transition:
+      left 900ms cubic-bezier(0.16, 1, 0.3, 1) var(--in, 0ms),
+      top 900ms cubic-bezier(0.16, 1, 0.3, 1) var(--in, 0ms),
+      scale 900ms cubic-bezier(0.34, 1.5, 0.5, 1) var(--in, 0ms),
+      opacity 300ms ease var(--in, 0ms);
+  }
+}
+
+/* подпись в шапке: на десктопе в строку, на мобильной — в две строки без города (Figma 33:2) */
+.topbar__meta-br {
+  display: none;
+}
+
+@media (max-width: 1120px) {
+  .topbar__meta-br {
+    display: inline;
+  }
+
+  .topbar__meta-sep,
+  .topbar__meta-city {
+    display: none;
   }
 }
