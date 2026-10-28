@@ -936,36 +936,6 @@ body {
   opacity: 1;
 }
 
-.journey-card__title {
-  width: 100%;
-  margin: 0;
-  /* место под стеклянную кнопку закрытия в углу */
-  padding-right: 48px;
-  color: #312723;
-  font-family: "Bimbo", "Cygre Book", "Helvetica Neue", Arial, sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 30px;
-  text-transform: uppercase;
-}
-
-.journey-card__content {
-  width: 100%;
-  display: grid;
-  gap: 18px;
-  padding-top: 12px;
-  color: #312723;
-  font-family: "Cygre Light", "Helvetica Neue", Arial, sans-serif;
-  font-size: 18px;
-  line-height: 1.2;
-  text-transform: lowercase;
-}
-
-.journey-card__content p {
-  margin: 0;
-}
-
 main {
   position: relative;
   z-index: 5;
@@ -1564,15 +1534,6 @@ main {
     padding: 20px 18px 18px;
   }
 
-  .journey-card__title {
-    padding-right: 52px;
-    font-size: 17px;
-    line-height: 1.35;
-  }
-
-  .journey-card__content {
-    font-size: 15px;
-  }
 }
 
 /* баблы на десктопе: ширина по тексту (простой шрифт) */
@@ -2020,4 +1981,234 @@ main {
 
 .orbit-modal.is-open .orbit__close {
   transition: opacity 700ms ease 150ms, scale 500ms cubic-bezier(0.34, 1.7, 0.5, 1);
+}
+
+/* путь героя: резюме справа, слева по экрану плавает фото в стеклянном пузыре (script.js) */
+.cv-modal {
+  place-items: center end;
+  padding: 24px clamp(84px, 7vw, 128px) 24px 24px;
+}
+
+.journey-card.cv {
+  display: block;
+  width: min(760px, 58vw);
+  height: calc(100vh - 48px);
+  height: calc(100dvh - 48px);
+  min-height: 0;
+  padding: 44px 48px 48px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  color: #312723;
+  font-family: "Cygre Light", "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(49, 39, 35, 0.3) transparent;
+}
+
+.cv-photo {
+  --d: clamp(180px, 19vw, 320px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: var(--d);
+  height: var(--d);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.cv-photo__bubble {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  scale: 0.2;
+  opacity: 0;
+  transition:
+    scale 1100ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 500ms ease;
+}
+
+.journey-modal.is-open .cv-photo__bubble {
+  scale: 1;
+  opacity: 1;
+  transition-delay: 120ms;
+}
+
+.cv-photo__bubble img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.cv__photo-slot:empty {
+  display: none;
+}
+
+.cv__head {
+  padding-bottom: 18px;
+  margin-bottom: 22px;
+  border-bottom: 1px solid rgba(49, 39, 35, 0.35);
+}
+
+.cv__name,
+.cv__section {
+  margin: 0;
+  font-family: "Bimbo", "Cygre Book", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.cv__name {
+  font-size: 34px;
+  line-height: 1.1;
+}
+
+.cv__role {
+  margin: 6px 0 10px;
+  color: #8a4b30;
+  font-family: "Bimbo", "Cygre Book", "Helvetica Neue", Arial, sans-serif;
+  font-size: 17px;
+  text-transform: uppercase;
+}
+
+.cv__meta {
+  margin: 0;
+  font-size: 15px;
+  opacity: 0.8;
+}
+
+.cv a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.cv__lead {
+  margin: 0 0 12px;
+}
+
+.cv__section {
+  margin: 30px 0 14px;
+  color: #8a4b30;
+  font-size: 19px;
+}
+
+.cv__job {
+  margin-bottom: 20px;
+}
+
+.cv__job h4,
+.cv__job h5 {
+  margin: 0;
+  font-family: "Cygre Book", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 400;
+}
+
+.cv__job h4 {
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.cv__job h5 {
+  margin-top: 12px;
+  font-size: 16px;
+}
+
+.cv__job h4 span,
+.cv__job h5 span {
+  opacity: 0.6;
+}
+
+.cv__where {
+  margin: 3px 0 6px;
+  color: #8a4b30;
+  font-size: 14px;
+}
+
+.cv ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cv__job li {
+  position: relative;
+  margin-top: 4px;
+  padding-left: 18px;
+}
+
+.cv__job li::before {
+  content: "–";
+  position: absolute;
+  left: 0;
+}
+
+.cv__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 32px;
+  margin-top: 10px;
+  padding-top: 4px;
+  border-top: 1px solid rgba(49, 39, 35, 0.35);
+}
+
+.cv__list li {
+  margin-bottom: 9px;
+}
+
+.cv__list b {
+  font-family: "Cygre Book", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 400;
+}
+
+.cv__plain {
+  margin: 0;
+}
+
+/* узкий экран: пузырь с фото встаёт в начало резюме и покачивается на месте */
+@media (max-width: 900px) {
+  .cv-modal {
+    place-items: center;
+    padding: 16px;
+  }
+
+  .journey-card.cv {
+    width: 100%;
+    height: calc(100dvh - 32px);
+    padding: 24px 20px 32px;
+    font-size: 15px;
+  }
+
+  .cv__photo-slot {
+    display: flex;
+    justify-content: center;
+    margin: 4px 0 18px;
+  }
+
+  .cv__photo-slot .cv-photo {
+    --d: 150px;
+    position: relative;
+    transform: none !important;
+    animation: orbitFloat 6.5s ease-in-out infinite;
+  }
+
+  .cv__name {
+    font-size: 26px;
+    text-align: center;
+  }
+
+  .cv__role,
+  .cv__meta {
+    text-align: center;
+  }
+
+  .cv__grid {
+    grid-template-columns: 1fr;
+  }
 }

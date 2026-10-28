@@ -162,11 +162,62 @@ window.addEventListener("keydown", (event) => {
   }
 });
 
-if (journeyTrigger && journeyModal) {
-  journeyTrigger.addEventListener("click", () => openModal(journeyModal));
-  if (journeyTriggerMobile) {
-    journeyTriggerMobile.addEventListener("click", () => openModal(journeyModal));
+// путь героя: фото в пузыре медленно плавает по свободной полосе слева от резюме,
+// на узком экране пузырь встаёт в начало резюме
+const cvPhoto = document.getElementById("cv-photo");
+const cvSlot = document.getElementById("cv-photo-slot");
+const cvCard = journeyModal && journeyModal.querySelector(".cv");
+let cvFrame = 0;
+let cvStart = 0;
+
+const cvWander = (now) => {
+  if (!journeyModal.classList.contains("is-open")) {
+    cvFrame = 0;
+    return;
   }
+  const d = cvPhoto.offsetWidth;
+  const pad = 32;
+  const zoneW = cvCard.getBoundingClientRect().left - pad * 2;
+  const zoneH = window.innerHeight - pad * 2;
+  const t = (now - cvStart) / 1000;
+  // сумма медленных синусов — плавный путь без резких разворотов
+  const nx = 0.62 * Math.sin(t * 0.23) + 0.38 * Math.sin(t * 0.41 + 1.3);
+  const ny = 0.6 * Math.sin(t * 0.19 + 0.7) + 0.4 * Math.sin(t * 0.33 + 2.1);
+  const x = pad + (zoneW - d) / 2 + (nx * Math.max(0, zoneW - d)) / 2;
+  const y = pad + (zoneH - d) / 2 + (ny * Math.max(0, zoneH - d)) / 2;
+  cvPhoto.style.transform = `translate(${x}px, ${y}px)`;
+  cvFrame = requestAnimationFrame(cvWander);
+};
+
+const placeCvPhoto = () => {
+  if (!cvPhoto || !cvSlot) return;
+  const narrow = window.matchMedia("(max-width: 900px)").matches;
+  if (narrow && cvPhoto.parentElement !== cvSlot) cvSlot.append(cvPhoto);
+  if (!narrow && cvPhoto.parentElement === cvSlot) journeyModal.insertBefore(cvPhoto, cvCard);
+  const glass = cvPhoto.querySelector(".orbit__glass");
+  const d = cvPhoto.offsetWidth;
+  glass.dataset.glassBezel = Math.round(d * 0.15);
+  glass.dataset.glassScale = Math.round(d * 0.19);
+  if (window.liquidGlass) window.liquidGlass(glass);
+  if (!narrow && !cvFrame && journeyModal.classList.contains("is-open")) {
+    cvStart = performance.now() - 4000;
+    cvFrame = requestAnimationFrame(cvWander);
+  }
+};
+
+const openJourney = () => {
+  openModal(journeyModal);
+  placeCvPhoto();
+};
+
+if (journeyTrigger && journeyModal) {
+  journeyTrigger.addEventListener("click", openJourney);
+  if (journeyTriggerMobile) {
+    journeyTriggerMobile.addEventListener("click", openJourney);
+  }
+  window.addEventListener("resize", () => {
+    if (journeyModal.classList.contains("is-open")) placeCvPhoto();
+  });
 }
 
 // окно раздела по клику на бабл: из него выплывают круглые пузыри проектов с заставками,
