@@ -1631,6 +1631,7 @@ main {
 .orbit__item {
   position: absolute;
   animation: orbitEmerge 1300ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity;
 }
 
 /* пузырь по макету (Figma 105:7): заставка на весь круг,
@@ -1656,6 +1657,17 @@ main {
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
+  opacity: 0;
+  transition: opacity 450ms ease;
+}
+
+/* пока заставка грузится — мягкое перламутровое пятно вместо пустого круга */
+.orbit__bubble {
+  background: radial-gradient(circle at 35% 30%, #fbf8f4, #e7e0da 70%);
+}
+
+.orbit__bubble.is-loaded img {
+  opacity: 1;
 }
 
 .orbit__glass {
@@ -2294,5 +2306,21 @@ main {
 @media (min-width: 1121px) {
   .hero__bubble {
     animation: none;
+  }
+}
+
+/* шапка под мутным экраном: не кликается и сама уходит в туман, как остальная страница */
+.topbar.is-covered {
+  pointer-events: none;
+}
+
+@media (max-width: 1120px) {
+  .topbar {
+    transition: opacity 600ms ease, filter 600ms ease;
+  }
+
+  .topbar.is-covered {
+    opacity: 0.35;
+    filter: blur(4px);
   }
 }

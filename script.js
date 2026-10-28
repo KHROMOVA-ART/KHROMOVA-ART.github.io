@@ -130,16 +130,31 @@ if (heroVideo) {
 syncHeroMediaState();
 window.addEventListener("resize", syncHeroMediaState);
 
+// всё, что под мутным экраном, неактивно: шапка («кто я») не ловит нажатия, пока открыто окно
+// или раскрыты разделы под кнопкой «проекты»; открытая панель «кто я» при этом закрывается
+const syncCovered = () => {
+  if (!topbar) return;
+  const covered = !!document.querySelector(".journey-modal.is-open") || !!document.querySelector(".hero__canvas.is-sections");
+  topbar.inert = covered;
+  topbar.classList.toggle("is-covered", covered);
+  if (covered && topbar.classList.contains("is-open")) {
+    topbar.classList.remove("is-open");
+    document.getElementById("topbar-menu-button")?.setAttribute("aria-expanded", "false");
+  }
+};
+
 const openModal = (modal) => {
   modal.classList.add("is-open");
   modal.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
+  syncCovered();
 };
 
 const closeModal = (modal) => {
   modal.classList.remove("is-open");
   modal.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";
+  syncCovered();
 };
 
 // окно раздела закрывается своей анимацией (пузыри лопаются), остальные — сразу
@@ -307,9 +322,16 @@ if (sectionModal) {
           a.className = "orbit__bubble";
           a.href = `./case.html?id=${encodeURIComponent(item.id)}`;
           a.setAttribute("aria-label", item.title);
+          // лёгкая квадратная миниатюра (assets/thumbs, см. thumbs.sh); проявляется, когда загрузилась
           const img = document.createElement("img");
-          img.src = window.caseImage(item, item.cover);
           img.alt = "";
+          img.decoding = "async";
+          img.addEventListener("load", () => a.classList.add("is-loaded"), { once: true });
+          img.addEventListener("error", () => {
+            img.src = window.caseImage(item, item.cover);
+          }, { once: true });
+          img.src = window.caseThumb(item);
+          if (img.complete && img.naturalWidth) a.classList.add("is-loaded");
           const glass = document.createElement("span");
           glass.className = "orbit__glass";
           glass.dataset.glassRound = "";
@@ -322,9 +344,23 @@ if (sectionModal) {
     }
     openModal(sectionModal);
     place(true);
-    // линзу считаем по готовому размеру пузыря
-    if (window.liquidGlass) stage.querySelectorAll(".orbit__glass").forEach((g) => window.liquidGlass(g));
+    // стеклянная линза (тяжёлый SVG-фильтр) включается, когда пузыри долетели, — иначе полёт дёргается
+    clearTimeout(glassTimer);
+    const settle = 1300 + Math.max(0, items.length - 1) * 90;
+    glassTimer = setTimeout(() => {
+      if (window.liquidGlass) stage.querySelectorAll(".orbit__glass").forEach((g) => window.liquidGlass(g));
+    }, settle);
   };
+  let glassTimer = 0;
+
+  // миниатюры всех пузырей подгружаем заранее, когда страница уже ничем не занята
+  const preloadThumbs = () => (window.CASES || []).forEach((item) => {
+    new Image().src = window.caseThumb(item);
+  });
+  window.addEventListener("load", () => {
+    if ("requestIdleCallback" in window) requestIdleCallback(preloadThumbs, { timeout: 4000 });
+    else setTimeout(preloadThumbs, 2500);
+  }, { once: true });
 
   window.addEventListener("resize", () => {
     if (sectionModal.classList.contains("is-open")) place(false);
@@ -468,6 +504,7 @@ if (topbar && topbarMenuButton) {
     movingTimer = setTimeout(() => canvas.classList.remove("is-moving"), open ? 820 + bubbles.length * 45 + 60 : 800);
     canvas.classList.toggle("is-sections", open);
     toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    syncCovered();
   };
 
   toggle.addEventListener("click", () => setOpen(!canvas.classList.contains("is-sections")));
