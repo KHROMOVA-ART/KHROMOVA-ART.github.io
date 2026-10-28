@@ -154,7 +154,27 @@
           video.controls = true;
           video.playsInline = true;
           video.preload = "none";
+          if (part.video.wide) video.classList.add("case__video--wide");
           unit.append(video);
+        }
+        if (part.screens) {
+          // сайт целиком в окне браузера и в рамке телефона — прокручивается внутри, как живой
+          const row = el("div", "case__screens");
+          for (const s of part.screens) {
+            const frame = el("figure", `case__screen case__screen--${s.device}`);
+            const view = el("div", "case__screen-view");
+            view.tabIndex = 0;
+            view.setAttribute("aria-label", s.caption || "сайт целиком");
+            const image = el("img");
+            image.src = img(item, s.src);
+            image.alt = s.caption || "";
+            image.loading = "lazy";
+            view.append(image);
+            frame.append(view);
+            if (s.caption) frame.append(el("figcaption", null, s.caption));
+            row.append(frame);
+          }
+          unit.append(row);
         }
         content.append(unit);
         if (part.images) content.append(shots(part.images));

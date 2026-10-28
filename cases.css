@@ -946,3 +946,75 @@
   background: #1d1916;
   object-fit: cover;
 }
+
+.case__video--wide {
+  max-width: 100%;
+  aspect-ratio: auto;
+}
+
+/* сайт целиком: окно браузера и телефон, страница прокручивается внутри рамки */
+.case__screens {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 28px;
+  margin-top: 22px;
+}
+
+.case__screen {
+  margin: 0;
+}
+
+.case__screen figcaption {
+  margin-top: 10px;
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+.case__screen-view {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: #fff;
+  scrollbar-width: thin;
+}
+
+.case__screen-view img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.case__screen--desktop {
+  flex: 1 1 520px;
+  min-width: 0;
+}
+
+.case__screen--desktop .case__screen-view {
+  height: min(560px, 62vh);
+  border: 1px solid rgba(49, 39, 35, 0.14);
+  border-top: 28px solid #e6e2dc;
+  border-radius: 14px;
+  box-shadow: 0 18px 40px rgba(49, 39, 35, 0.12);
+}
+
+.case__screen--phone {
+  flex: 0 0 auto;
+}
+
+.case__screen--phone .case__screen-view {
+  width: 250px;
+  height: 520px;
+  border: 10px solid #1f1b19;
+  border-radius: 36px;
+  box-shadow: 0 18px 40px rgba(49, 39, 35, 0.16);
+}
+
+@media (max-width: 760px) {
+  .case__screens {
+    justify-content: center;
+  }
+
+  .case__screen--desktop {
+    flex-basis: 100%;
+  }
+}
