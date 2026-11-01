@@ -1226,6 +1226,16 @@ main {
     background: rgba(137, 126, 125, 0.58);
   }
 
+  /* холст фигурки шире экрана: длинная тень на полу уходит за край, а не обрывается на краю холста.
+     Кадр в character.js считается по высоте, поэтому фигурка от этого не меняется */
+  .hero__figure-3d {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: max(100%, calc(100vw + 80px));
+    transform: translateX(-50%);
+  }
+
   .hero__figure img,
   .hero__figure-video {
     width: 460px;
@@ -1701,6 +1711,50 @@ main {
   backdrop-filter: blur(1.5px) saturate(1.3);
   -webkit-mask: radial-gradient(farthest-side, transparent 82%, #000 90%);
   mask: radial-gradient(farthest-side, transparent 82%, #000 90%);
+}
+
+/* пузыри проектов: тень живёт на самом пузыре, а не на линзе — линза проявляется плавно, тень не мигает */
+.orbit__bubble {
+  box-shadow:
+    0 1.141px 1.141px rgba(253, 219, 146, 0.25),
+    0 -2.281px 8.903px rgba(167, 178, 235, 0.38),
+    0 1.187px 8.903px rgba(255, 255, 255, 0.38);
+}
+
+.orbit__bubble .orbit__glass {
+  box-shadow: none;
+}
+
+/* в полёте — чистый блик по краю без размытия (размытие и давало муть) */
+.orbit__bubble .orbit__glass:not(.is-liquid) {
+  background: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.orbit__bubble::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(farthest-side, rgba(255, 255, 255, 0) 82%, rgba(255, 255, 255, 0.4) 100%);
+  pointer-events: none;
+  transition: opacity 800ms ease;
+}
+
+/* когда пузыри долетели, линза наливается, а временный блик гаснет */
+.orbit__bubble .orbit__glass.is-liquid {
+  animation: glassFill 800ms ease both;
+}
+
+.orbit__bubble:has(.orbit__glass.is-liquid)::after {
+  opacity: 0;
+}
+
+@keyframes glassFill {
+  from {
+    opacity: 0;
+  }
 }
 
 .orbit__bubble:hover,
