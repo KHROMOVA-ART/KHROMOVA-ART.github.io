@@ -788,12 +788,14 @@ body {
 }
 
 /* «архив»: при наведении над ссылкой надувается стеклянный пузырь с подписью */
-.hero__bottom-nav .archive-link {
+.hero__bottom-nav .archive-link,
+.hero__bottom-note {
   position: relative;
 }
 
 /* невидимый мостик между словом и пузырём: курсор переходит на пузырь, и тот не сдувается */
-.hero__bottom-nav .archive-link:hover::before {
+.hero__bottom-nav .archive-link:hover::before,
+.hero__bottom-note:hover::before {
   content: "";
   position: absolute;
   left: -12px;
@@ -802,7 +804,8 @@ body {
   height: 20px;
 }
 
-.hero__bottom-nav .archive-link:hover {
+.hero__bottom-nav .archive-link:hover,
+.hero__bottom-note:hover {
   opacity: 1;
   transform: none;
   color: rgba(49, 39, 35, 0.62);
@@ -862,9 +865,17 @@ body {
   mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
 }
 
+/* у «пути героя» справа экран кончается, поэтому пузырь растёт влево */
+.hero__bottom-note .archive-bubble {
+  transform-origin: 70% 120%;
+  translate: -70% 0;
+}
+
 /* надувание: медленно и мягко растёт из точки у ссылки, без рывков и отскоков */
 .archive-link:hover .archive-bubble,
-.archive-link:focus-visible .archive-bubble {
+.archive-link:focus-visible .archive-bubble,
+.hero__bottom-note:hover .archive-bubble,
+.hero__bottom-note:focus-visible .archive-bubble {
   pointer-events: auto;
   cursor: pointer;
   scale: 1;
@@ -878,7 +889,9 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .archive-link:hover .archive-bubble,
-  .archive-link:focus-visible .archive-bubble {
+  .archive-link:focus-visible .archive-bubble,
+  .hero__bottom-note:hover .archive-bubble,
+  .hero__bottom-note:focus-visible .archive-bubble {
     transition: opacity 300ms ease;
   }
 }
