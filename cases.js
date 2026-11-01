@@ -1678,4 +1678,4 @@ window.CASES = [
 
 window.caseImage = (item, file) => `./assets/cases/${item.id}/${file}`;
 // квадратная миниатюра обложки для круглых пузырей (генерирует thumbs.sh)
-window.caseThumb = (item) => `./assets/thumbs/${item.id}.jpg`;
+window.caseThumb = (item) => `./assets/thumbs/${item.id}.jpg?v=2`;
