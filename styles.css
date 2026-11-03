@@ -1713,7 +1713,8 @@ main {
   mask: radial-gradient(farthest-side, transparent 82%, #000 90%);
 }
 
-/* пузыри проектов: тень живёт на самом пузыре, а не на линзе — линза проявляется плавно, тень не мигает */
+/* пузыри проектов — лёгкое стекло без фильтров: жидкая линза пересчитывалась каждый кадр покачивания
+   и сайт тормозил. Тень на самом пузыре, сверху блик, светлая кромка и перламутровый кант */
 .orbit__bubble {
   box-shadow:
     0 1.141px 1.141px rgba(253, 219, 146, 0.25),
@@ -1722,39 +1723,34 @@ main {
 }
 
 .orbit__bubble .orbit__glass {
-  box-shadow: none;
-}
-
-/* в полёте — чистый блик по краю без размытия (размытие и давало муть) */
-.orbit__bubble .orbit__glass:not(.is-liquid) {
-  background: none;
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
+  display: none;
 }
 
 .orbit__bubble::after {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 2;
   border-radius: 50%;
-  background: radial-gradient(farthest-side, rgba(255, 255, 255, 0) 82%, rgba(255, 255, 255, 0.4) 100%);
+  background:
+    radial-gradient(42% 30% at 32% 20%, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0) 70%),
+    radial-gradient(farthest-side, rgba(255, 255, 255, 0) 78%, rgba(255, 255, 255, 0.2) 90%, rgba(255, 255, 255, 0.55) 100%);
   pointer-events: none;
-  transition: opacity 800ms ease;
 }
 
-/* когда пузыри долетели, линза наливается, а временный блик гаснет */
-.orbit__bubble .orbit__glass.is-liquid {
-  animation: glassFill 800ms ease both;
-}
-
-.orbit__bubble:has(.orbit__glass.is-liquid)::after {
-  opacity: 0;
-}
-
-@keyframes glassFill {
-  from {
-    opacity: 0;
-  }
+.orbit__bubble::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  padding: 1.5px;
+  border-radius: 50%;
+  background: conic-gradient(#fff, #ffc8e6 12%, #fff 25%, #c8e2ff 40%, #fff 55%, #d6ffe9 68%, #fff 80%, #e4d0ff 90%, #fff);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: 0.85;
+  pointer-events: none;
 }
 
 .orbit__bubble:hover,

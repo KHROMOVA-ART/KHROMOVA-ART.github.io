@@ -344,14 +344,9 @@ if (sectionModal) {
     }
     openModal(sectionModal);
     place(true);
-    // стеклянная линза (тяжёлый SVG-фильтр) включается, когда пузыри долетели, — иначе полёт дёргается
-    clearTimeout(glassTimer);
-    const settle = 1300 + Math.max(0, items.length - 1) * 90;
-    glassTimer = setTimeout(() => {
-      if (window.liquidGlass) stage.querySelectorAll(".orbit__glass").forEach((g) => window.liquidGlass(g));
-    }, settle);
+    // жидкую линзу (SVG-фильтр) на пузыри проектов не ставим: она пересчитывается каждый кадр покачивания
+    // и сайт начинает тормозить — у них лёгкое стекло из styles.css
   };
-  let glassTimer = 0;
 
   // миниатюры всех пузырей подгружаем заранее, когда страница уже ничем не занята
   const preloadThumbs = () => (window.CASES || []).forEach((item) => {
