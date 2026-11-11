@@ -1183,7 +1183,9 @@ main {
     left: 50%;
     top: 0;
     transform: translateX(-50%);
-    background: linear-gradient(180deg, #fdfdfd 72.04%, #dad4d2 87.5%);
+    /* свой градиент не нужен: под сценой тот же градиент у .hero на всю ширину —
+       иначе на планшете сцена видна серым прямоугольником с краями */
+    background: none;
   }
 
   .hero__name {
@@ -1722,11 +1724,20 @@ main {
     0 1.187px 8.903px rgba(255, 255, 255, 0.38);
 }
 
-.orbit__bubble .orbit__glass {
+.orbit__bubble .orbit__glass,
+.cv-photo__bubble .orbit__glass {
   display: none;
 }
 
-.orbit__bubble::after {
+/* то же лёгкое стекло у фото в «пути героя»: пузырь всё время плывёт, фильтр там так же тормозил */
+.cv-photo__bubble {
+  box-shadow:
+    0 -2.281px 8.903px rgba(167, 178, 235, 0.38),
+    0 10px 30px rgba(49, 39, 35, 0.12);
+}
+
+.orbit__bubble::after,
+.cv-photo__bubble::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -1738,7 +1749,8 @@ main {
   pointer-events: none;
 }
 
-.orbit__bubble::before {
+.orbit__bubble::before,
+.cv-photo__bubble::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -2385,5 +2397,28 @@ main {
   .topbar.is-covered {
     opacity: 0.35;
     filter: blur(4px);
+  }
+}
+
+/* мобильная и планшет: главная целиком помещается в один экран при любой высоте —
+   фигурка сжимается под экран (кадр в character.js считается от высоты блока), страница не прокручивается */
+@media (max-width: 1120px) {
+  body {
+    min-height: 100svh;
+  }
+
+  .hero,
+  .hero__canvas {
+    height: 100svh;
+    min-height: 100svh;
+  }
+
+  .hero__mobile-scene {
+    height: 100svh;
+  }
+
+  .hero__figure,
+  .hero__mobile-scene .hero__figure {
+    height: min(746px, calc(100svh - 156px));
   }
 }

@@ -35,6 +35,7 @@
   let last = 0;
   let visible = true;
   let suppressClick = false;
+  let covered = false;
 
   const bounds = () => ({
     w: canvas.clientWidth,
@@ -180,7 +181,7 @@
   };
 
   const start = () => {
-    if (raf || !visible || !desktop.matches || reduced.matches) return;
+    if (raf || covered || !visible || !desktop.matches || reduced.matches) return;
     measureChrome();
     if (!items.length) setup();
     last = performance.now();
@@ -297,6 +298,14 @@
       if (typeof window.openSectionModal === "function") window.openSectionModal(el);
     });
     el.addEventListener("dragstart", (e) => e.preventDefault());
+  });
+
+  // под окном раздела или резюме баблы замирают (см. syncCovered в script.js); курсор уходит на окно
+  // без pointerleave, поэтому заодно сбрасываем «наведён», иначе бабл остался бы стоять навсегда
+  window.addEventListener("site:covered", (e) => {
+    covered = e.detail;
+    items.forEach((it) => { it.hover = false; });
+    covered ? stop() : start();
   });
 
   desktop.addEventListener("change", reset);

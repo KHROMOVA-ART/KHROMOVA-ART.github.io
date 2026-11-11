@@ -398,7 +398,8 @@ async function init() {
   let announced = false;
 
   renderer.setAnimationLoop(() => {
-    if (!visible || document.hidden) {
+    // под мутным экраном (окно раздела, резюме) фигурку не перерисовываем — см. syncCovered в script.js
+    if (!visible || document.hidden || (window.siteCovered && announced)) {
       clock.getDelta();
       return;
     }

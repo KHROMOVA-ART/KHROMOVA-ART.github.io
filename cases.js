@@ -1,6 +1,8 @@
 // Данные кейсов. Один объект — один кейс; страницы case.html и projects.html и окна баблов
 // строятся из этого списка. Картинки лежат в assets/cases/<id>/.
 // tags — направления (совпадают с data-section у баблов на главной).
+// thumb — как вырезать кружок-миниатюру (thumbs.py): src — другой файл вместо обложки, x/y — точка кадра 0…1,
+// zoom — приближение, fit: "contain" — вписать картинку целиком на её же фоне.
 window.CASE_TAGS = {
   env: "средовой дизайн",
   product: "продуктовый дизайн",
@@ -127,6 +129,7 @@ window.CASES = [
     discipline: "руководитель проекта, арт-директор",
     stage: "стратегия и концепция",
     cover: "cover.jpg",
+    thumb: { src: "logo-1.jpg", fit: "contain" },
     intro: [
       "«Все свечи про уют — мы про драйв». NEVANIL — бренд свечей, который отказывается от «ванили» и превращает эмоции в скульптурные формы.",
     ],
@@ -295,6 +298,7 @@ window.CASES = [
     discipline: "визуализации, вёрстка, веб-дизайн",
     stage: "2026",
     cover: "catalog-cover.jpg",
+    thumb: { y: 1, zoom: 1.25 },
     intro: [
       "Инженерный продукт с таблицами типоразмеров и расчётами нужно было показать так, чтобы он выглядел дорого и при этом оставался понятным проектировщику.",
     ],
@@ -355,6 +359,7 @@ window.CASES = [
     discipline: "веб-дизайн",
     stage: "анализ и проект",
     cover: "cover.jpg",
+    thumb: { src: "in-1972.jpg", fit: "contain" },
     intro: [
       "До начала вёрстки историю студии Pixar разбили на этапы, выделили главных героев, их линии и влияние друг на друга, нашли визуальные метафоры и разделили текст на смысловые блоки.",
     ],
@@ -905,6 +910,7 @@ window.CASES = [
     discipline: "презентации",
     stage: "работа в киностудии",
     cover: "cover.jpg",
+    thumb: { src: "ai-stand.jpg" },
     intro: [
       "Киностудия «Москва» сделала для Expomaster кинематографичное AI-видео стенда: ощущение, будто стенд уже построен и работает на выставке. Я собрала об этом проекте презентацию-кейс.",
     ],
@@ -984,6 +990,7 @@ window.CASES = [
     discipline: "презентации",
     stage: "работа в киностудии",
     cover: "cover.jpg",
+    thumb: { fit: "contain" },
     intro: ["Работая в киностудии, верстала презентации — коммерческие предложения, которые раскрывали задумку и визуал будущего ролика."],
     link: {
       href: "https://www.figma.com/proto/VxsDuLNSOoWTaGnRSH9BqM/%D0%A1%D0%A2%D0%98%D0%9B%D0%AC?node-id=23-307&p=f&scaling=contain&content-scaling=fixed",
@@ -1032,6 +1039,7 @@ window.CASES = [
     discipline: "вайбкодинг",
     stage: "работа в киностудии",
     cover: "cover.jpg",
+    thumb: { src: "archive.jpg", x: 0.62, y: 0.26, zoom: 2.59 },
     intro: [
       "Коммерческое предложение для авиакомпании в формате живого лендинга: идея фильма, архивная фактура, реконструкции и команда — всё собрано и свёрстано с ИИ за один вечер.",
     ],
@@ -1085,6 +1093,7 @@ window.CASES = [
     discipline: "вайбкодинг",
     stage: "работа в киностудии",
     cover: "cover.jpg",
+    thumb: { src: "equipment.jpg" },
     intro: [
       "Коммерческое предложение для промышленной компании в формате адаптивного анимированного лендинга вместо привычной презентации.",
     ],
@@ -1171,6 +1180,7 @@ window.CASES = [
     discipline: "вайбкодинг",
     stage: "собственные наработки",
     cover: "reels-agent.jpg",
+    thumb: { src: "cover-agent.jpg", y: 0.2, zoom: 1.15 },
     intro: [
       "Помимо целостных проектов я много вайбкожу инструменты для себя: агент монтирует рилсы для моего блога, другой помогает делать обложки для соцсетей в разы быстрее.",
     ],
@@ -1275,6 +1285,7 @@ window.CASES = [
     discipline: "ии-креатив",
     stage: "в разработке",
     cover: "panther.jpg",
+    thumb: { x: 0.0165, y: 0.65, zoom: 1.77 },
     intro: ["Проект призван возродить образ женственности в России: «в каждой девушке сидит её дикая кошка»."],
     sections: [
       {
@@ -1302,6 +1313,7 @@ window.CASES = [
     discipline: "ии-креатив",
     stage: "коммерческие проекты",
     cover: "flymyai.jpg",
+    thumb: { x: 0.2926, y: 0.458, zoom: 1.907 },
     intro: ["Креатив для соцсетей двух брендов: технологичный стартап и уютная интерьерная игрушка — каждый в своей айдентике."],
     link: {
       href: "https://www.figma.com/proto/6K7NWMGPoa2jRF8MbnwNtW/%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE-%D0%BF%D0%BE%D1%80%D1%82%D1%84%D0%BE%D0%BB%D0%B8%D0%BE-%D0%A5%D1%80%D0%BE%D0%BC%D0%BE%D0%B2%D0%B0-%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B0?node-id=38-3&p=f&scaling=contain&content-scaling=fixed",
@@ -1622,6 +1634,7 @@ window.CASES = [
     discipline: "типографика",
     stage: "эксперимент",
     cover: "poster-8.jpg",
+    thumb: { src: "poster-10.jpg", y: 0.04 },
     gallery: [
       { src: "poster-1.jpg" },
       { src: "poster-2.jpg" },
@@ -1667,6 +1680,7 @@ window.CASES = [
     discipline: "полиграфия",
     stage: "для себя",
     cover: "invite.jpg",
+    thumb: { y: 0 },
     gallery: [
       { src: "invite.jpg" },
       { src: "menu.jpg" },
@@ -1678,4 +1692,4 @@ window.CASES = [
 
 window.caseImage = (item, file) => `./assets/cases/${item.id}/${file}`;
 // квадратная миниатюра обложки для круглых пузырей (генерирует thumbs.sh)
-window.caseThumb = (item) => `./assets/thumbs/${item.id}.jpg?v=2`;
+window.caseThumb = (item) => `./assets/thumbs/${item.id}.jpg?v=3`;

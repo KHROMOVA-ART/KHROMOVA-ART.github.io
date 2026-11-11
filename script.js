@@ -137,6 +137,12 @@ const syncCovered = () => {
   const covered = !!document.querySelector(".journey-modal.is-open") || !!document.querySelector(".hero__canvas.is-sections");
   topbar.inert = covered;
   topbar.classList.toggle("is-covered", covered);
+  // под мутным экраном главная замирает: фигурка не перерисовывается, пузыри разделов не плавают —
+  // иначе браузер каждый кадр заново размывает всё, что движется под окном, и сайт тормозит
+  if (window.siteCovered !== covered) {
+    window.siteCovered = covered;
+    window.dispatchEvent(new CustomEvent("site:covered", { detail: covered }));
+  }
   if (covered && topbar.classList.contains("is-open")) {
     topbar.classList.remove("is-open");
     document.getElementById("topbar-menu-button")?.setAttribute("aria-expanded", "false");
@@ -206,11 +212,6 @@ const placeCvPhoto = () => {
   const narrow = window.matchMedia("(max-width: 900px)").matches;
   if (narrow && cvPhoto.parentElement !== cvSlot) cvSlot.append(cvPhoto);
   if (!narrow && cvPhoto.parentElement === cvSlot) journeyModal.insertBefore(cvPhoto, cvCard);
-  const glass = cvPhoto.querySelector(".orbit__glass");
-  const d = cvPhoto.offsetWidth;
-  glass.dataset.glassBezel = Math.round(d * 0.15);
-  glass.dataset.glassScale = Math.round(d * 0.19);
-  if (window.liquidGlass) window.liquidGlass(glass);
   if (!narrow && !cvFrame && journeyModal.classList.contains("is-open")) {
     cvStart = performance.now() - 4000;
     cvFrame = requestAnimationFrame(cvWander);
@@ -283,10 +284,6 @@ if (sectionModal) {
       node.style.setProperty("--fx", `${origin.x - box.left - p.x}px`);
       node.style.setProperty("--fy", `${origin.y - box.top - p.y}px`);
       node.style.animationDelay = `${i * 90}ms`;
-      // кромка линзы и сила преломления — от размера пузыря, чтобы на телефоне не было перебора
-      const glass = node.querySelector(".orbit__glass");
-      glass.dataset.glassBezel = Math.round(d * 0.15);
-      glass.dataset.glassScale = Math.round(d * 0.19);
       if (!animate) node.style.animation = "none";
     });
   };
@@ -314,15 +311,15 @@ if (sectionModal) {
       current = null;
     } else {
       stage.replaceChildren(
-        ...items.map((item, i) => {
+        ...items.map((item) => {
           const wrap = document.createElement("div");
           wrap.className = "orbit__item";
-          // пузырь: заставка на весь круг, сверху стеклянная линза
+          // пузырь: заставка на весь круг, стекло — блик и кант из styles.css
           const a = document.createElement("a");
           a.className = "orbit__bubble";
           a.href = `./case.html?id=${encodeURIComponent(item.id)}`;
           a.setAttribute("aria-label", item.title);
-          // лёгкая квадратная миниатюра (assets/thumbs, см. thumbs.sh); проявляется, когда загрузилась
+          // лёгкая квадратная миниатюра (assets/thumbs, см. thumbs.py); проявляется, когда загрузилась
           const img = document.createElement("img");
           img.alt = "";
           img.decoding = "async";
@@ -332,11 +329,7 @@ if (sectionModal) {
           }, { once: true });
           img.src = window.caseThumb(item);
           if (img.complete && img.naturalWidth) a.classList.add("is-loaded");
-          const glass = document.createElement("span");
-          glass.className = "orbit__glass";
-          glass.dataset.glassRound = "";
-          glass.dataset.glassId = `orbit-${i}`;
-          a.append(img, glass);
+          a.append(img);
           wrap.append(a);
           return wrap;
         }),
@@ -344,8 +337,6 @@ if (sectionModal) {
     }
     openModal(sectionModal);
     place(true);
-    // жидкую линзу (SVG-фильтр) на пузыри проектов не ставим: она пересчитывается каждый кадр покачивания
-    // и сайт начинает тормозить — у них лёгкое стекло из styles.css
   };
 
   // миниатюры всех пузырей подгружаем заранее, когда страница уже ничем не занята
@@ -481,15 +472,21 @@ if (topbar && topbarMenuButton) {
     const top = toggle.offsetTop + toggle.offsetHeight;
     const ox = w / 2;
     const oy = toggle.offsetTop + toggle.offsetHeight / 2;
-    const step = Math.min(78, Math.max(64, (window.innerHeight - top - 120) / 6));
-    const half = Math.min(84, w / 4 - 6);
+    // шаг рядов — от свободной высоты, чтобы все пузыри помещались и на низком экране;
+    // если в две колонки не влезают (телефон на боку) — раскладываем в четыре
+    const room = Math.min(canvas.clientHeight, window.innerHeight) - top;
+    const lead = Math.max(44, Math.min(70, room * 0.12));
+    const stepFor = (cols) => (room - lead - 48) / Math.max(1, Math.ceil(bubbles.length / cols) - 0.5);
+    const cols = stepFor(2) < 50 && w >= 560 ? 4 : 2;
+    const step = Math.min(78, Math.max(44, stepFor(cols)));
+    const gapX = Math.min(168, w / cols - 6);
     bubbles.forEach((b, i) => {
-      const col = i % 2;
-      const row = Math.floor(i / 2);
+      const col = i % cols;
+      const row = Math.floor(i / cols);
       // лёгкий разброс, чтобы колонки не выглядели таблицей
       const jitter = ((i * 37) % 17) - 8;
-      const tx = ox + (col ? half : -half) + jitter;
-      const ty = top + 70 + row * step + (col ? step / 2 : 0);
+      const tx = ox + (col - (cols - 1) / 2) * gapX + jitter;
+      const ty = top + lead + row * step + (col % 2 ? step / 2 : 0);
       b.style.setProperty("--tx", `${tx}px`);
       b.style.setProperty("--ty", `${ty}px`);
       // сдвиг до кнопки: из этой точки пузырь вылетает и туда же прячется

@@ -18,13 +18,28 @@
   const card = (item) => {
     const a = el("a", "project-card");
     a.href = caseUrl(item);
+    // рамка 16:9: широкие обложки заполняют её, а вертикальные и квадратные показываются целиком
+    // на размытой копии самих себя — ничего не обрезается
+    const frame = el("span", "project-card__frame");
     const cover = el("img", "project-card__cover");
-    cover.src = img(item, item.cover);
     cover.alt = "";
     cover.loading = "lazy";
+    cover.decoding = "async";
+    const fit = () => {
+      if (!cover.naturalWidth) return;
+      if (cover.naturalWidth / cover.naturalHeight < 1.6) {
+        frame.classList.add("is-matted");
+        frame.style.setProperty("--cover", `url("${cover.currentSrc || cover.src}")`);
+      }
+      frame.classList.add("is-loaded");
+    };
+    cover.addEventListener("load", fit, { once: true });
+    cover.src = img(item, item.cover);
+    if (cover.complete) fit();
+    frame.append(cover);
     const title = el("span", "project-card__title", item.title);
     const meta = el("span", "project-card__tags", item.tags.map((t) => tags[t]).join(" • "));
-    a.append(cover, title, meta);
+    a.append(frame, title, meta);
     return a;
   };
 
@@ -120,9 +135,22 @@
   };
   const shots = (list, cls = "case__gallery") => {
     const grid = el("div", cls);
+    // вертикальные картинки (плакаты, обои) идут мелкой сеткой, а не растягиваются на весь экран
+    let loaded = 0;
+    let tall = 0;
+    const count = (image) => {
+      if (!image.naturalWidth) return;
+      loaded += 1;
+      if (image.naturalWidth / image.naturalHeight < 0.9) tall += 1;
+      grid.classList.toggle("is-portrait", tall * 2 >= loaded);
+    };
     for (const src of list) {
       const f = shot(src);
-      if (f) grid.append(f);
+      if (!f) continue;
+      grid.append(f);
+      const image = f.querySelector("img");
+      if (image.complete) count(image);
+      else image.addEventListener("load", () => count(image), { once: true });
     }
     return grid;
   };
@@ -131,7 +159,17 @@
   // обложка-слайд листалки не дублируется отдельной картинкой
   const inDeck = (item.sections || []).some((sec) => (sec.items || []).some((p) => (p.slides || []).includes(item.cover)));
   const coverShot = inDeck ? null : shot(item.cover, true);
-  if (coverShot) cover.append(coverShot);
+  if (coverShot) {
+    cover.append(coverShot);
+    // вертикальная или квадратная обложка не растягивается на несколько экранов и не режется:
+    // показываем её целиком по центру
+    const coverImg = coverShot.querySelector("img");
+    const fitCover = () => {
+      if (coverImg.naturalWidth && coverImg.naturalWidth / coverImg.naturalHeight < 1.3) cover.classList.add("is-tall");
+    };
+    coverImg.addEventListener("load", fitCover, { once: true });
+    if (coverImg.complete) fitCover();
+  }
 
   const body = [];
   if (item.sections) {
