@@ -180,7 +180,7 @@ window.addEventListener("keydown", (event) => {
   }
 });
 
-// путь героя: фото в пузыре медленно плавает по свободной полосе слева от резюме,
+// резюме: фото в пузыре медленно плавает по свободной полосе слева от резюме,
 // на узком экране пузырь встаёт в начало резюме
 const cvPhoto = document.getElementById("cv-photo");
 const cvSlot = document.getElementById("cv-photo-slot");

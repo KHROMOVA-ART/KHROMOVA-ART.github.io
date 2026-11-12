@@ -865,7 +865,13 @@ body {
   mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
 }
 
-/* у «пути героя» справа экран кончается, поэтому пузырь растёт влево */
+/* у «проектов» слева экран кончается, поэтому пузырь растёт вправо */
+.hero__bottom-nav .archive-link--start .archive-bubble {
+  transform-origin: 12% 120%;
+  translate: -12% 0;
+}
+
+/* у «резюме» справа экран кончается, поэтому пузырь растёт влево */
 .hero__bottom-note .archive-bubble {
   transform-origin: 70% 120%;
   translate: -70% 0;
@@ -1729,7 +1735,7 @@ main {
   display: none;
 }
 
-/* то же лёгкое стекло у фото в «пути героя»: пузырь всё время плывёт, фильтр там так же тормозил */
+/* то же лёгкое стекло у фото в резюме: пузырь всё время плывёт, фильтр там так же тормозил */
 .cv-photo__bubble {
   box-shadow:
     0 -2.281px 8.903px rgba(167, 178, 235, 0.38),
@@ -1984,7 +1990,7 @@ main {
   transition: opacity 700ms ease 150ms, scale 500ms cubic-bezier(0.34, 1.7, 0.5, 1);
 }
 
-/* путь героя: резюме справа, слева по экрану плавает фото в стеклянном пузыре (script.js) */
+/* резюме: текст справа, слева по экрану плавает фото в стеклянном пузыре (script.js) */
 .cv-modal {
   place-items: center end;
   padding: 24px clamp(84px, 7vw, 128px) 24px 24px;
@@ -2214,7 +2220,7 @@ main {
   }
 }
 
-/* мобильная панель «кто я»: сверху навигация (проекты, архив, путь героя) */
+/* мобильная панель «кто я»: сверху навигация (проекты, архив, резюме) */
 .topbar.topbar--compact .topbar__mobile-nav {
   display: flex;
   flex-wrap: wrap;
