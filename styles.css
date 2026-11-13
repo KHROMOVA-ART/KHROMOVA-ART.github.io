@@ -1505,6 +1505,7 @@ main {
 
   /* подпись теперь в две строки — бабл той же ширины, что «средовой» и «продуктовый дизайн» */
   .hero__bubble--motion,
+  .hero__bubble--smm,
   .hero__bubble--industrial {
     width: 140px;
   }
@@ -2382,6 +2383,8 @@ main {
 
 /* бабл «дурачество»: эксперименты */
 .hero__bubble--fun { width: clamp(140px, 9vw, 168px); left: 50%; top: 86%; animation-delay: 0.8s; }
+/* бабл «арт-дирекшн соцсетей» */
+.hero__bubble--smm { width: clamp(150px, 10vw, 180px); left: 30%; top: 84%; animation-delay: 1.5s; }
 
 /* на десктопе баблы двигает физика (bubbles.js): покачивание выключено, чтобы края касались точно */
 @media (min-width: 1121px) {
